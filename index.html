@@ -1,0 +1,1273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<meta name="description" content="ONIMIX AIVERSE — 40+ AI Tools, 200+ Prompts, Monetization Strategies for Nigerians."/>
+<title>ONIMIX AIVERSE — The Future of AI Belongs To Those Who Learn Early</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Bebas+Neue&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#f2f2f2;
+  --card:#ffffff;
+  --surface:#f8f8f8;
+  --border:rgba(0,0,0,0.1);
+  --accent:#0099cc;
+  --text:#111827;
+  --muted:#6b7280;
+  --FD:'Bebas Neue',sans-serif;
+  --FB:'Space Grotesk',sans-serif;
+  --FM:'JetBrains Mono',monospace;
+  --black:#f2f2f2;
+  --white:#111827;
+  --blue:#0099cc;
+  --purple:#7c3aed;
+  --green:#059669;
+  --orange:#ea580c;
+  --pink:#db2777;
+  --gold:#b45309;
+  --red:#dc2626;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-track{background:#e5e7eb;}
+::-webkit-scrollbar-thumb{background:var(--accent);border-radius:4px;}
+body{background:var(--bg);color:var(--text);font-family:var(--FB);overflow-x:hidden;transition:background 0.6s ease;}
+a{text-decoration:none;color:inherit;}
+
+/* LOADER */
+#loader{position:fixed;inset:0;z-index:9999;background:#111827;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity 0.8s,visibility 0.8s;padding:20px;text-align:center;}
+#loader.hidden{opacity:0;visibility:hidden;}
+.l-logo{font-family:var(--FD);font-size:clamp(28px,7vw,68px);letter-spacing:8px;background:linear-gradient(135deg,var(--blue),var(--purple),var(--pink),var(--blue));background-size:300%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:lshift 2s ease infinite;margin-bottom:6px;}
+.l-sub{font-family:var(--FM);font-size:10px;letter-spacing:3px;color:rgba(0,212,255,0.45);margin-bottom:24px;}
+.l-bar-w{width:260px;height:2px;background:rgba(255,255,255,0.07);border-radius:2px;overflow:hidden;}
+.l-bar{height:100%;background:linear-gradient(90deg,var(--blue),var(--purple),var(--pink));width:0%;animation:lbar 2.8s ease forwards;}
+.l-status{font-family:var(--FM);font-size:9px;letter-spacing:2px;color:rgba(0,212,255,0.4);margin-top:10px;animation:blink 1s infinite;}
+@keyframes lshift{0%,100%{background-position:0%;}50%{background-position:100%;}}
+@keyframes lbar{to{width:100%;}}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:0.2;}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+/* NAV */
+#nav{position:fixed;top:0;left:0;right:0;z-index:100;height:62px;backdrop-filter:blur(20px);background:rgba(255,255,255,0.92);border-bottom:1px solid var(--border);box-shadow:0 2px 20px rgba(0,0,0,0.06);display:flex;align-items:center;justify-content:space-between;padding:0 clamp(14px,4vw,48px);transition:all 0.3s;}
+#nav.scrolled{box-shadow:0 4px 40px rgba(0,212,255,0.08);}
+.nav-logo{font-family:var(--FD);font-size:20px;letter-spacing:4px;background:linear-gradient(135deg,var(--blue),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;white-space:nowrap;}
+.nav-links{display:flex;gap:20px;list-style:none;}
+.nav-links a{font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:rgba(17,24,39,0.6);transition:color 0.2s;position:relative;}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:var(--blue);transition:width 0.3s;}
+.nav-links a:hover{color:var(--accent);}
+.nav-links a:hover::after{width:100%;}
+.nav-cta{background:linear-gradient(135deg,var(--blue),var(--purple));color:#000;font-weight:700;font-size:11px;letter-spacing:1px;padding:8px 18px;border-radius:6px;transition:all 0.2s;white-space:nowrap;}
+.nav-cta:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(0,212,255,0.4);}
+.nav-mob{display:none;background:none;border:none;color:var(--white);cursor:pointer;padding:6px;}
+@media(max-width:900px){.nav-links{display:none;}.nav-mob{display:block;}}
+
+/* PROGRESS */
+#pbar{position:fixed;top:62px;left:0;height:2px;background:linear-gradient(90deg,var(--blue),var(--purple),var(--pink));z-index:99;width:0%;transition:width 0.1s linear;}
+
+/* MOBILE MENU */
+#mmenu{position:fixed;inset:0;z-index:150;background:rgba(255,255,255,0.98);backdrop-filter:blur(24px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;opacity:0;visibility:hidden;transition:all 0.3s;}
+#mmenu.show{opacity:1;visibility:visible;}
+.mm-x{position:absolute;top:20px;right:20px;background:none;border:none;color:#6b7280;font-size:22px;cursor:pointer;}
+.mm-a{font-family:var(--FD);font-size:clamp(26px,5vw,38px);letter-spacing:4px;color:#111827;transition:color 0.2s;}
+.mm-a:hover{color:var(--blue);}
+
+/* SECTIONS */
+.section{position:relative;padding:clamp(56px,9vw,108px) clamp(14px,4vw,48px);}
+.inner{max-width:1200px;margin:0 auto;}
+.eyebrow{font-family:var(--FM);font-size:10px;letter-spacing:4px;color:var(--blue);text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:8px;opacity:0;transform:translateY(16px);transition:all 0.6s;}
+.eyebrow.on{opacity:1;transform:translateY(0);}
+.eyebrow::before{content:'//';color:rgba(0,212,255,0.3);}
+h2.stitle{font-family:var(--FD);font-size:clamp(34px,6vw,66px);letter-spacing:3px;line-height:0.95;margin-bottom:13px;opacity:0;transform:translateY(20px);transition:all 0.7s 0.1s;}
+h2.stitle.on{opacity:1;transform:translateY(0);}
+.ssub{font-size:clamp(13px,2vw,16px);color:var(--muted);line-height:1.75;max-width:560px;margin-bottom:44px;opacity:0;transform:translateY(16px);transition:all 0.7s 0.2s;}
+.ssub.on{opacity:1;transform:translateY(0);}
+.reveal{opacity:0;transform:translateY(26px);transition:opacity 0.7s,transform 0.7s;}
+.reveal.on{opacity:1;transform:translateY(0);}
+.reveal-l{opacity:0;transform:translateX(-26px);transition:opacity 0.7s,transform 0.7s;}
+.reveal-l.on{opacity:1;transform:translateX(0);}
+.reveal-r{opacity:0;transform:translateX(26px);transition:opacity 0.7s,transform 0.7s;}
+.reveal-r.on{opacity:1;transform:translateX(0);}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;gap:7px;font-family:var(--FB);font-weight:700;font-size:12px;letter-spacing:1px;text-transform:uppercase;padding:12px 24px;border-radius:7px;cursor:pointer;border:none;text-decoration:none;transition:all 0.3s;}
+.btn-p{background:linear-gradient(135deg,var(--blue),var(--purple));color:#fff;box-shadow:0 0 18px rgba(0,212,255,0.2);}
+.btn-p:hover{transform:translateY(-3px);box-shadow:0 8px 34px rgba(0,212,255,0.4);}
+.btn-o{background:transparent;color:var(--white);border:1px solid rgba(255,255,255,0.18);}
+.btn-o:hover{background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.35);transform:translateY(-2px);}
+.btn-g{background:linear-gradient(135deg,var(--gold),#a07800);color:#000;box-shadow:0 0 18px rgba(212,175,55,0.22);}
+.btn-g:hover{transform:translateY(-3px);box-shadow:0 8px 34px rgba(212,175,55,0.45);}
+.btn-wa{background:linear-gradient(135deg,#25D366,#128C7E);color:#fff;}
+.btn-wa:hover{transform:translateY(-3px);box-shadow:0 8px 28px rgba(37,211,102,0.4);}
+.tag{display:inline-block;font-family:var(--FM);font-size:9px;letter-spacing:2px;text-transform:uppercase;padding:3px 9px;border-radius:3px;}
+
+/* GRADIENT TEXTS */
+.gt-b{background:linear-gradient(135deg,var(--blue),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.gt-g{background:linear-gradient(135deg,var(--gold),#fff8b0,var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.gt-gr{background:linear-gradient(135deg,var(--green),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.gt-f{background:linear-gradient(135deg,var(--orange),var(--red),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.gt-p{background:linear-gradient(135deg,var(--purple),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+
+/* BG */
+#bgc{position:fixed;inset:0;z-index:0;pointer-events:none;}
+#cg{position:fixed;width:340px;height:340px;border-radius:50%;background:radial-gradient(ellipse,rgba(0,212,255,0.03) 0%,transparent 70%);pointer-events:none;z-index:0;transform:translate(-50%,-50%);transition:left 0.12s,top 0.12s;}
+
+/* HERO */
+#hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:80px 16px 40px;position:relative;overflow:hidden;}
+.h-grid{position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(0,0,0,0.05) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,0.05) 1px,transparent 1px);background-size:56px 56px;animation:gridM 22s linear infinite;}
+@keyframes gridM{to{background-position:0 56px;}}
+.h-orb{position:absolute;top:50%;left:50%;transform:translate(-50%,-60%);width:clamp(280px,55vw,680px);height:clamp(280px,55vw,680px);border-radius:50%;background:radial-gradient(ellipse,rgba(0,212,255,0.07) 0%,rgba(124,58,237,0.05) 40%,transparent 70%);animation:orbp 7s ease-in-out infinite;pointer-events:none;z-index:1;}
+@keyframes orbp{0%,100%{transform:translate(-50%,-60%) scale(1);}50%{transform:translate(-50%,-60%) scale(1.1);}}
+.h-content{position:relative;z-index:2;max-width:980px;}
+.h-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(0,212,255,0.07);border:1px solid rgba(0,212,255,0.18);border-radius:20px;padding:7px 18px;margin-bottom:22px;font-family:var(--FM);font-size:10px;letter-spacing:2px;color:var(--blue);animation:fadeUp 0.8s ease forwards;opacity:0;}
+.hbdot{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:blink 2s infinite;}
+.h-ey{font-family:var(--FM);font-size:11px;letter-spacing:4px;color:rgba(0,212,255,0.45);text-transform:uppercase;margin-bottom:16px;animation:fadeUp 0.8s ease 0.15s forwards;opacity:0;}
+.h-title{font-family:var(--FD);font-size:clamp(42px,9vw,108px);line-height:0.9;letter-spacing:4px;margin-bottom:20px;animation:fadeUp 0.8s ease 0.28s forwards;opacity:0;}
+.h-title .l1{color:#111827;display:block;}
+.h-title .l2{display:block;background:linear-gradient(135deg,var(--blue),var(--purple),var(--pink),var(--orange));background-size:300%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:hshift 5s ease infinite;}
+@keyframes hshift{0%,100%{background-position:0%;}50%{background-position:100%;}}
+.h-title .l3{display:block;color:rgba(17,24,39,0.3);font-size:0.33em;letter-spacing:10px;margin-top:8px;}
+.h-sub{font-size:clamp(14px,2.2vw,17px);color:#6b7280;line-height:1.75;max-width:640px;margin:0 auto 30px;animation:fadeUp 0.8s ease 0.4s forwards;opacity:0;}
+.h-ctas{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:48px;animation:fadeUp 0.8s ease 0.5s forwards;opacity:0;}
+.h-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;max-width:660px;margin:0 auto;background:rgba(0,0,0,0.08);border-radius:12px;overflow:hidden;animation:fadeUp 0.8s ease 0.6s forwards;opacity:0;}
+.hs{background:#ffffff;padding:18px 12px;text-align:center;}
+.hs-n{font-family:var(--FD);font-size:30px;letter-spacing:2px;color:var(--blue);display:block;line-height:1;}
+.hs-l{font-size:9px;color:#9ca3af;letter-spacing:2px;text-transform:uppercase;font-family:var(--FM);margin-top:3px;display:block;}
+@media(max-width:480px){.h-stats{grid-template-columns:repeat(2,1fr);}}
+.fcs{position:absolute;inset:0;pointer-events:none;z-index:1;}
+.fc{position:absolute;background:rgba(255,255,255,0.92);border:1px solid rgba(0,0,0,0.1);border-radius:10px;padding:10px 13px;font-size:10px;color:#6b7280;backdrop-filter:blur(8px);animation:cfloat 6s ease-in-out infinite;box-shadow:0 4px 20px rgba(0,0,0,0.08);}
+.fc:nth-child(1){top:22%;left:3%;}
+.fc:nth-child(2){top:28%;right:4%;animation-delay:1.5s;}
+.fc:nth-child(3){bottom:22%;left:5%;animation-delay:3s;}
+.fc:nth-child(4){bottom:18%;right:3%;animation-delay:4.5s;}
+.fc:nth-child(5){top:55%;left:1%;animation-delay:2s;}
+.fc:nth-child(6){top:50%;right:2%;animation-delay:3.5s;}
+@keyframes cfloat{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
+.fc-i{font-size:16px;margin-bottom:3px;}.fc-l{font-family:var(--FM);font-size:8px;letter-spacing:1px;color:var(--blue);}
+@media(max-width:640px){.fcs{display:none;}}
+
+/* DISTRICT NAV */
+#dnav{position:sticky;top:62px;z-index:50;background:rgba(255,255,255,0.95);border-bottom:1px solid rgba(0,0,0,0.08);backdrop-filter:blur(20px);overflow-x:auto;scrollbar-width:none;}
+#dnav::-webkit-scrollbar{display:none;}
+.dn-in{display:flex;max-width:1200px;margin:0 auto;padding:0 clamp(14px,4vw,48px);}
+.dni{display:flex;align-items:center;gap:7px;padding:13px 16px;font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:rgba(17,24,39,0.4);border-bottom:2px solid transparent;cursor:pointer;transition:all 0.2s;white-space:nowrap;}
+.dni:hover{color:#111827;}
+.dni.active{color:var(--blue);border-bottom-color:var(--blue);}
+.dnd{width:5px;height:5px;border-radius:50%;background:currentColor;}
+
+/* ABOUT */
+#about{background:#f8f8f8;}
+.about-grid{display:grid;grid-template-columns:1fr 1.4fr;gap:52px;align-items:center;}
+@media(max-width:768px){.about-grid{grid-template-columns:1fr;}}
+.aav-w{position:relative;width:180px;height:180px;margin:0 auto 18px;}
+.aav-r1{position:absolute;inset:-10px;border-radius:50%;border:1px solid rgba(0,212,255,0.3);animation:spin 12s linear infinite;}
+.aav-r2{position:absolute;inset:-5px;border-radius:50%;border:1px dashed rgba(0,212,255,0.15);animation:spin 8s linear infinite reverse;}
+.aav-img{width:180px;height:180px;border-radius:50%;object-fit:cover;border:3px solid var(--blue);box-shadow:0 0 36px rgba(0,212,255,0.28);position:relative;z-index:1;}
+.aav-fb{width:180px;height:180px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--purple));display:flex;align-items:center;justify-content:center;font-size:64px;border:3px solid var(--blue);position:relative;z-index:1;}
+.aav-st{display:inline-flex;align-items:center;gap:7px;background:rgba(0,255,136,0.07);border:1px solid rgba(0,255,136,0.18);border-radius:20px;padding:5px 14px;font-family:var(--FM);font-size:10px;color:var(--green);letter-spacing:1px;}
+.aname{font-family:var(--FD);font-size:48px;letter-spacing:3px;color:#111827;margin-bottom:4px;line-height:1;}
+.ahandle{font-family:var(--FM);font-size:12px;color:var(--blue);letter-spacing:2px;margin-bottom:14px;}
+.abio{font-size:15px;color:#6b7280;line-height:1.8;margin-bottom:22px;}
+.asocials{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px;}
+.sc{display:flex;align-items:center;gap:6px;background:#ffffff;border:1px solid rgba(0,0,0,0.1);border-radius:7px;padding:7px 12px;font-size:11px;color:#6b7280;transition:all 0.2s;text-decoration:none;box-shadow:0 1px 4px rgba(0,0,0,0.06);}
+.sc:hover{border-color:rgba(0,212,255,0.35);color:var(--white);transform:translateY(-2px);}
+.sc svg{width:14px;height:14px;}
+
+/* TOOLS */
+#tools{background:#f8f8f8;}
+.ts-row{display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap;}
+.ts-in{flex:1;min-width:180px;background:#ffffff;border:1px solid rgba(0,0,0,0.12);border-radius:8px;padding:10px 14px;color:#111827;font-family:var(--FB);font-size:13px;outline:none;transition:border-color 0.2s;box-shadow:0 1px 4px rgba(0,0,0,0.05);}
+.ts-in:focus{border-color:var(--blue);}
+.tcats{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:24px;}
+.tcb{background:#ffffff;border:1px solid rgba(0,0,0,0.1);border-radius:6px;padding:6px 13px;font-size:11px;color:#6b7280;cursor:pointer;transition:all 0.2s;font-family:var(--FB);box-shadow:0 1px 3px rgba(0,0,0,0.04);}
+.tcb:hover,.tcb.active{border-color:var(--blue);color:var(--white);background:rgba(0,212,255,0.07);}
+.tgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:13px;}
+.pc{background:#ffffff;border:1px solid rgba(0,0,0,0.08);border-radius:13px;padding:18px;cursor:pointer;transition:all 0.3s;position:relative;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.06);}
+.pc::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 0%,var(--pcb,rgba(0,212,255,0.05)),transparent);pointer-events:none;}
+.pc:hover{transform:translateY(-5px);border-color:var(--pcbr,rgba(0,212,255,0.28));box-shadow:0 18px 50px rgba(0,0,0,0.45);}
+.pc-icon{font-size:34px;margin-bottom:11px;display:block;}
+.pc-name{font-family:var(--FD);font-size:21px;letter-spacing:2px;color:#111827;margin-bottom:5px;}
+.pc-desc{font-size:11px;color:#6b7280;line-height:1.6;margin-bottom:11px;}
+.pc-tags{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:11px;}
+.pc-action{font-size:10px;color:var(--pcc,var(--blue));font-family:var(--FM);letter-spacing:1px;display:flex;align-items:center;justify-content:space-between;}
+.pc-cb{position:absolute;top:10px;right:10px;font-family:var(--FM);font-size:8px;letter-spacing:1px;padding:2px 6px;border-radius:3px;background:rgba(0,0,0,0.5);color:var(--pcc,var(--blue));border:1px solid var(--pcbr,rgba(0,212,255,0.2));}
+
+/* MODAL */
+.modal{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,0.88);backdrop-filter:blur(22px);display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;visibility:hidden;transition:all 0.3s;}
+.modal.show{opacity:1;visibility:visible;}
+.modal-box{background:#ffffff;border:1px solid rgba(0,0,0,0.1);border-radius:18px;width:100%;max-width:680px;max-height:90vh;overflow-y:auto;padding:30px;position:relative;transform:scale(0.94);transition:transform 0.3s;scrollbar-width:thin;scrollbar-color:rgba(0,212,255,0.2) transparent;}
+.modal.show .modal-box{transform:scale(1);}
+.mcl{position:absolute;top:14px;right:14px;width:32px;height:32px;border-radius:50%;background:rgba(0,0,0,0.04);border:1px solid rgba(0,0,0,0.1);color:#6b7280;cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center;transition:all 0.2s;}
+.mcl:hover{background:rgba(255,80,80,0.1);color:#ff6464;}
+.mtabs{display:flex;border-bottom:1px solid var(--border);margin:16px 0;}
+.mtab{padding:8px 14px;font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:#9ca3af;border-bottom:2px solid transparent;cursor:pointer;transition:all 0.2s;}
+.mtab.active{color:var(--blue);border-bottom-color:var(--blue);}
+.mcontent{display:none;}.mcontent.active{display:block;}
+.mlist{list-style:none;display:flex;flex-direction:column;gap:7px;}
+.mlist li{display:flex;align-items:flex-start;gap:8px;font-size:13px;color:#6b7280;}
+.mlist li::before{content:'→';color:var(--blue);flex-shrink:0;}
+.pstep{display:flex;gap:12px;padding:10px;background:rgba(0,0,0,0.03);border:1px solid rgba(0,0,0,0.07);border-radius:7px;margin-bottom:6px;}
+.psn{font-family:var(--FD);font-size:20px;color:var(--blue);min-width:26px;line-height:1;}
+.pst{font-size:12px;color:#6b7280;line-height:1.6;}
+.psl{font-size:11px;font-weight:700;color:#111827;margin-bottom:2px;}
+
+/* PROMPTS */
+#prompts{background:#f2f2f2;}
+.pf-wrap{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:24px;}
+.pf{background:#ffffff;border:1px solid rgba(0,0,0,0.1);border-radius:6px;padding:6px 13px;font-size:11px;color:#6b7280;cursor:pointer;transition:all 0.2s;font-family:var(--FB);}
+.pf:hover,.pf.active{border-color:var(--purple);color:var(--white);background:rgba(124,58,237,0.08);}
+.pg{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:13px;}
+.pcard{background:#ffffff;border:1px solid rgba(0,0,0,0.08);border-radius:12px;padding:17px;transition:all 0.3s;position:relative;box-shadow:0 2px 10px rgba(0,0,0,0.05);}
+.pcard:hover{border-color:rgba(124,58,237,0.32);transform:translateY(-3px);}
+.pcat{font-family:var(--FM);font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--purple);margin-bottom:7px;}
+.ptitle{font-size:13px;font-weight:600;color:#111827;margin-bottom:6px;}
+.ptext{font-family:var(--FM);font-size:11px;color:#6b7280;background:#f8f8f8;border-radius:6px;padding:8px;line-height:1.6;margin-bottom:9px;border-left:2px solid var(--accent);max-height:76px;overflow:hidden;transition:max-height 0.3s;}
+.ptext.exp{max-height:400px;}
+.pcopy{width:100%;background:rgba(124,58,237,0.08);border:1px solid rgba(124,58,237,0.2);color:var(--purple);border-radius:6px;padding:6px;font-size:10px;cursor:pointer;transition:all 0.2s;font-family:var(--FB);display:flex;align-items:center;justify-content:center;gap:5px;}
+.pcopy:hover{background:rgba(124,58,237,0.18);color:var(--white);}
+.pcopy.copied{background:rgba(0,255,136,0.08);border-color:rgba(0,255,136,0.25);color:var(--green);}
+.pexp{position:absolute;bottom:46px;right:7px;background:rgba(10,16,32,0.95);border:none;color:var(--muted);font-size:9px;cursor:pointer;padding:2px 6px;border-radius:3px;font-family:var(--FM);}
+
+/* PROMPT BUILDER */
+.pb-wrap{background:#ffffff;border:1px solid rgba(0,0,0,0.1);border-radius:16px;padding:26px;margin-top:36px;box-shadow:0 4px 20px rgba(0,0,0,0.08);}
+.pb-title{font-family:var(--FD);font-size:26px;letter-spacing:2px;color:#111827;margin-bottom:14px;}
+.pb-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-bottom:11px;}
+@media(max-width:580px){.pb-grid{grid-template-columns:1fr;}}
+.pb-lbl{font-size:10px;color:var(--muted);margin-bottom:5px;display:block;font-family:var(--FM);letter-spacing:1px;}
+.pb-sel,.pb-inp{background:#f8f8f8;border:1px solid rgba(0,0,0,0.12);border-radius:7px;padding:10px 12px;color:#111827;font-family:var(--FB);font-size:12px;outline:none;width:100%;transition:border-color 0.2s;}
+.pb-sel:focus,.pb-inp:focus{border-color:var(--purple);}
+.pb-out{background:#f4f4f4;border:1px solid rgba(0,0,0,0.1);border-radius:8px;padding:13px;font-family:var(--FM);font-size:12px;color:#374151;line-height:1.7;min-height:76px;margin:13px 0;border-left:3px solid var(--accent);}
+
+/* MONETIZE */
+#monetize{background:#f8f8f8;}
+.mg{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;}
+.mc{background:#ffffff;border:1px solid rgba(0,0,0,0.08);border-radius:13px;padding:22px;transition:all 0.3s;position:relative;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.06);}
+.mc:hover{transform:translateY(-4px);border-color:rgba(212,175,55,0.28);}
+.mc::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:0;transition:opacity 0.3s;}
+.mc:hover::after{opacity:1;}
+.micon{font-size:32px;margin-bottom:11px;}
+.mtitle{font-family:var(--FD);font-size:21px;letter-spacing:2px;color:#111827;margin-bottom:6px;}
+.mdesc{font-size:12px;color:#6b7280;line-height:1.7;margin-bottom:12px;}
+.mamt{font-family:var(--FD);font-size:24px;color:var(--gold);letter-spacing:1px;}
+.mper{font-size:11px;color:var(--muted);margin-left:4px;}
+.msteps{list-style:none;margin-top:11px;}
+.msteps li{font-size:11px;color:#6b7280;padding:4px 0;display:flex;align-items:center;gap:6px;}
+.msteps li::before{content:'→';color:var(--gold);font-size:10px;}
+.prods-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;margin-top:36px;}
+.prodcard{background:#ffffff;border:1px solid rgba(0,0,0,0.08);border-radius:13px;padding:22px;position:relative;overflow:hidden;transition:all 0.3s;box-shadow:0 2px 12px rgba(0,0,0,0.06);}
+.prodcard:hover{transform:translateY(-4px);box-shadow:0 18px 50px rgba(0,0,0,0.4);}
+.prodcard::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--pc3,var(--gold)),transparent);}
+.prod-tag{position:absolute;top:13px;right:13px;}
+.prod-title{font-family:var(--FD);font-size:20px;letter-spacing:2px;color:#111827;margin-bottom:6px;padding-top:5px;}
+.prod-desc{font-size:12px;color:#6b7280;line-height:1.7;margin-bottom:12px;}
+.prod-price{font-family:var(--FD);font-size:24px;letter-spacing:1px;}
+.prod-old{font-size:12px;color:var(--muted);text-decoration:line-through;margin-left:6px;}
+
+/* UNIVERSITY */
+#university{background:#f2f2f2;}
+.xpbar-w{background:rgba(255,255,255,0.05);border-radius:3px;height:5px;overflow:hidden;margin-bottom:5px;}
+.xpbar{height:100%;background:linear-gradient(90deg,var(--blue),var(--purple));border-radius:3px;transition:width 1.5s ease;}
+.upaths{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:14px;}
+.upath{background:#ffffff;border:1px solid rgba(0,0,0,0.08);border-radius:13px;padding:22px;transition:all 0.3s;box-shadow:0 2px 12px rgba(0,0,0,0.06);}
+.upath:hover{transform:translateY(-3px);border-color:rgba(0,212,255,0.25);}
+.uplvl{font-family:var(--FM);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--blue);margin-bottom:7px;display:flex;align-items:center;gap:7px;}
+.uplvl::after{content:'';flex:1;height:1px;background:rgba(0,212,255,0.18);}
+.uptitle{font-family:var(--FD);font-size:21px;letter-spacing:2px;color:#111827;margin-bottom:6px;}
+.umods{list-style:none;margin:11px 0;}
+.umods li{font-size:12px;color:#6b7280;padding:5px 0;display:flex;align-items:center;gap:7px;border-bottom:1px solid rgba(0,0,0,0.05);}
+.umods li:last-child{border:none;}
+.mchk{width:14px;height:14px;border-radius:50%;border:1px solid rgba(0,212,255,0.25);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:9px;}
+.mchk.done{background:rgba(0,255,136,0.08);border-color:var(--green);color:var(--green);}
+.badges-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:32px;}
+.badge{display:flex;flex-direction:column;align-items:center;gap:5px;background:#ffffff;border:1px solid rgba(0,0,0,0.08);border-radius:11px;padding:13px 16px;text-align:center;transition:all 0.3s;min-width:80px;box-shadow:0 2px 8px rgba(0,0,0,0.05);}
+.badge:hover{transform:translateY(-3px);}
+.badge-icon{font-size:24px;}.badge-name{font-size:9px;color:#9ca3af;font-family:var(--FM);letter-spacing:1px;}
+.badge.earned .badge-icon{filter:drop-shadow(0 0 8px var(--gold));}.badge.earned .badge-name{color:var(--gold);}
+.dc-box{background:linear-gradient(135deg,rgba(0,153,204,0.06),rgba(124,58,237,0.06));border:1px solid rgba(0,153,204,0.2);border-radius:13px;padding:24px;margin-bottom:32px;display:grid;grid-template-columns:1fr auto;gap:18px;align-items:center;}
+@media(max-width:580px){.dc-box{grid-template-columns:1fr;}}
+.dc-lbl{font-family:var(--FM);font-size:9px;letter-spacing:3px;color:var(--blue);text-transform:uppercase;margin-bottom:6px;}
+.dc-title{font-family:var(--FD);font-size:22px;letter-spacing:2px;color:#111827;margin-bottom:6px;}
+.dc-num{font-family:var(--FD);font-size:42px;color:var(--gold);line-height:1;text-align:center;}
+.dc-nlab{font-size:9px;color:var(--muted);font-family:var(--FM);letter-spacing:2px;text-align:center;}
+
+/* COMMUNITY */
+#community{background:#f8f8f8;}
+.comm-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+@media(max-width:680px){.comm-grid{grid-template-columns:1fr;}}
+.ccard{background:#ffffff;border:1px solid rgba(0,0,0,0.08);border-radius:13px;padding:24px;transition:all 0.3s;box-shadow:0 2px 12px rgba(0,0,0,0.06);}
+.ccard:hover{transform:translateY(-3px);}
+.stories{display:flex;flex-direction:column;gap:11px;margin-top:26px;}
+.scard{background:#ffffff;border:1px solid rgba(0,0,0,0.08);border-radius:10px;padding:16px;display:flex;gap:13px;transition:all 0.2s;box-shadow:0 1px 6px rgba(0,0,0,0.04);}
+.scard:hover{border-color:rgba(0,212,255,0.18);}
+.sav{width:38px;height:38px;border-radius:50%;font-size:20px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.stxt{font-size:12px;color:#6b7280;line-height:1.65;font-style:italic;margin-bottom:5px;}
+.sauth{font-size:10px;font-weight:700;color:var(--blue);font-family:var(--FM);}
+.nl-box{background:linear-gradient(135deg,rgba(0,153,204,0.06),rgba(124,58,237,0.06));border:1px solid rgba(0,153,204,0.15);border-radius:13px;padding:32px;text-align:center;margin-top:32px;}
+.nl-title{font-family:var(--FD);font-size:30px;letter-spacing:3px;color:#111827;margin-bottom:7px;}
+.nl-sub{font-size:13px;color:#6b7280;margin-bottom:18px;}
+.nl-form{display:flex;gap:8px;max-width:400px;margin:0 auto;}
+.nl-inp{flex:1;background:#ffffff;border:1px solid rgba(0,0,0,0.12);border-radius:7px;padding:11px 13px;color:#111827;font-family:var(--FB);font-size:12px;outline:none;transition:border-color 0.2s;}
+.nl-inp:focus{border-color:var(--blue);}
+@media(max-width:460px){.nl-form{flex-direction:column;}}
+
+/* VAULT */
+#vault{background:#f2f2f2;}
+.vg{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:13px;}
+.vcard{background:#ffffff;border:1px solid rgba(0,0,0,0.08);border-radius:12px;padding:18px;transition:all 0.3s;display:flex;flex-direction:column;gap:9px;box-shadow:0 2px 10px rgba(0,0,0,0.05);}
+.vcard:hover{transform:translateY(-3px);border-color:rgba(212,175,55,0.25);box-shadow:0 13px 34px rgba(0,0,0,0.4);}
+.vicon{font-size:28px;}.vtitle{font-size:13px;font-weight:600;color:#111827;}
+.vdesc{font-size:11px;color:#6b7280;line-height:1.6;flex:1;}
+.vact{font-family:var(--FM);font-size:10px;color:var(--gold);display:flex;align-items:center;gap:4px;}
+
+/* FOOTER */
+footer{background:#ffffff;border-top:1px solid rgba(0,0,0,0.08);padding:clamp(32px,6vw,68px) clamp(14px,4vw,48px) 26px;position:relative;z-index:1;}
+.ft-in{max-width:1200px;margin:0 auto;}
+.ft-top{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:32px;margin-bottom:36px;}
+@media(max-width:860px){.ft-top{grid-template-columns:1fr 1fr;gap:22px;}}
+@media(max-width:460px){.ft-top{grid-template-columns:1fr;}}
+.ft-brand{font-family:var(--FD);font-size:24px;letter-spacing:5px;margin-bottom:9px;background:linear-gradient(135deg,var(--blue),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.ft-bio{font-size:12px;color:#6b7280;line-height:1.7;max-width:230px;margin-bottom:16px;}
+.ft-ct{font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#111827;margin-bottom:13px;font-family:var(--FM);}
+.ft-links{list-style:none;display:flex;flex-direction:column;gap:8px;}
+.ft-links a{font-size:12px;color:#6b7280;transition:color 0.2s;}
+.ft-links a:hover{color:var(--blue);}
+.ft-bot{border-top:1px solid rgba(0,0,0,0.06);padding-top:18px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:9px;}
+.ft-copy{font-size:10px;color:#9ca3af;font-family:var(--FM);}
+
+/* UTILS */
+.flex{display:flex;}.gap-2{gap:8px;}.gap-3{gap:12px;}.fw{flex-wrap:wrap;}
+.mt-4{margin-top:16px;}.mt-6{margin-top:24px;}.mt-8{margin-top:32px;}.mt-10{margin-top:40px;}
+</style>
+</head>
+<body>
+<div id="cg"></div>
+<canvas id="bgc"></canvas>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="l-logo">ONIMIX AIVERSE</div>
+  <div class="l-sub">THE FUTURE OF AI BELONGS TO THOSE WHO LEARN EARLY</div>
+  <div class="l-bar-w"><div class="l-bar"></div></div>
+  <div class="l-status" id="lstatus">LOADING AI UNIVERSE...</div>
+</div>
+<div id="pbar"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-logo">ONIMIX AIVERSE</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#tools">40+ AI Tools</a></li>
+    <li><a href="#prompts">200+ Prompts</a></li>
+    <li><a href="#monetize">Monetize</a></li>
+    <li><a href="#university">University</a></li>
+    <li><a href="#community">Community</a></li>
+    <li><a href="#vault">Vault</a></li>
+  </ul>
+  <a href="https://wa.link/9073zd" target="_blank" class="nav-cta">💼 Get Products</a>
+  <button class="nav-mob" onclick="toggleMM()">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+  </button>
+</nav>
+
+<!-- MOBILE MENU -->
+<div id="mmenu">
+  <button class="mm-x" onclick="toggleMM()">✕</button>
+  <a class="mm-a" href="#about" onclick="toggleMM()">About</a>
+  <a class="mm-a" href="#tools" onclick="toggleMM()">AI Tools</a>
+  <a class="mm-a" href="#prompts" onclick="toggleMM()">Prompts</a>
+  <a class="mm-a" href="#monetize" onclick="toggleMM()">Monetize</a>
+  <a class="mm-a" href="#university" onclick="toggleMM()">University</a>
+  <a class="mm-a" href="#community" onclick="toggleMM()">Community</a>
+  <a class="mm-a" href="#vault" onclick="toggleMM()">Vault</a>
+  <a href="https://wa.link/9073zd" target="_blank" class="btn btn-g" onclick="toggleMM()">💼 Get Products</a>
+</div>
+
+<!-- HERO -->
+<section id="hero" class="section">
+  <div class="h-grid"></div>
+  <div class="h-orb"></div>
+  <div class="fcs">
+    <div class="fc"><div class="fc-i">🤖</div><div class="fc-l">40+ AI Tools</div></div>
+    <div class="fc"><div class="fc-i">💰</div><div class="fc-l">₦200K+/month</div></div>
+    <div class="fc"><div class="fc-i">📝</div><div class="fc-l">200+ Prompts</div></div>
+    <div class="fc"><div class="fc-i">🎨</div><div class="fc-l">Photoshop Prompts</div></div>
+    <div class="fc"><div class="fc-i">🇳🇬</div><div class="fc-l">Built for Nigeria</div></div>
+    <div class="fc"><div class="fc-i">🧠</div><div class="fc-l">AI University</div></div>
+  </div>
+  <div class="h-content">
+    <div class="h-badge"><div class="hbdot"></div>The AI Revolution is Here — Nigeria is Ready 🇳🇬</div>
+    <div class="h-ey">ONIMIX AIVERSE — Est. 2025</div>
+    <h1 class="h-title">
+      <span class="l1">The Future of AI</span>
+      <span class="l2">Belongs To Those</span>
+      <span class="l3">Who Learn Early · Create · Monetize · Dominate</span>
+    </h1>
+    <p class="h-sub">Enter the most immersive AI learning ecosystem built for Nigerians. 40+ AI tools explained, 200+ copy-ready prompts including Photoshop & ad creation, and proven monetization strategies — all in one place.</p>
+    <div class="h-ctas">
+      <a href="#tools" class="btn btn-p">🚀 Explore 40+ Tools</a>
+      <a href="#prompts" class="btn btn-o">📝 200+ Prompts</a>
+      <a href="https://wa.link/9073zd" target="_blank" class="btn btn-g">💰 Get Products</a>
+    </div>
+    <div class="h-stats">
+      <div class="hs"><span class="hs-n" data-count="40">0</span><span class="hs-l">AI Tools</span></div>
+      <div class="hs"><span class="hs-n" data-count="200">0</span><span class="hs-l">Prompts</span></div>
+      <div class="hs"><span class="hs-n" data-count="7">0</span><span class="hs-l">Districts</span></div>
+      <div class="hs"><span class="hs-n" data-count="100">0</span><span class="hs-l">% Nigeria 🇳🇬</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- DISTRICT NAV -->
+<div id="dnav">
+  <div class="dn-in">
+    <div class="dni active" onclick="goTo('#about')"><div class="dnd"></div>About</div>
+    <div class="dni" onclick="goTo('#tools')"><div class="dnd"></div>AI Galaxy</div>
+    <div class="dni" onclick="goTo('#prompts')"><div class="dnd"></div>Prompt Lab</div>
+    <div class="dni" onclick="goTo('#monetize')"><div class="dnd"></div>Monetize</div>
+    <div class="dni" onclick="goTo('#university')"><div class="dnd"></div>University</div>
+    <div class="dni" onclick="goTo('#community')"><div class="dnd"></div>Community</div>
+    <div class="dni" onclick="goTo('#vault')"><div class="dnd"></div>Vault</div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about" class="section">
+  <div class="inner">
+    <p class="eyebrow">About the Creator</p>
+    <div class="about-grid">
+      <div class="reveal-l" style="display:flex;flex-direction:column;align-items:center;">
+        <div class="aav-w">
+          <div class="aav-r1"></div><div class="aav-r2"></div>
+          <img src="/images/oni.jpg" alt="Onimix" class="aav-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+          <div class="aav-fb" style="display:none;">🧠</div>
+        </div>
+        <div class="aav-st"><div class="hbdot"></div>Online · Creating AI Content Daily</div>
+      </div>
+      <div class="reveal-r">
+        <div class="aname">ONIMIX</div>
+        <div class="ahandle">@MumeenOnimixDauda · Nigeria 🇳🇬</div>
+        <p class="abio">Hi, I'm Mumeen Onimix Dauda — Nigerian AI/Tech Creator and founder of NairaRoots & ONIMIX AIVERSE. I help Nigerians master AI tools, create digital products, and build real income online. This platform is my mission to make AI accessible to every Nigerian ready to win.</p>
+        <div class="asocials">
+          <a href="https://www.facebook.com/profile.php?id=61582275307275" target="_blank" class="sc"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>Facebook</a>
+          <a href="https://www.tiktok.com/@onimix999x" target="_blank" class="sc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg>TikTok</a>
+          <a href="https://wa.link/mjp0j3" target="_blank" class="sc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>WhatsApp</a>
+          <a href="https://audiomack.com/onimix" target="_blank" class="sc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>Music</a>
+          <a href="https://onimix.github.io/darktech-/" target="_blank" class="sc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>GitHub</a>
+          <a href="mailto:mumeenonimisi@gmail.com" class="sc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>Email</a>
+          <a href="https://nairaroots.vercel.app/" target="_blank" class="sc">🌍 NairaRoots</a>
+          <a href="https://whatsapp.com/channel/0029Vb6Hq0K7YSdCXtjgzt1x" target="_blank" class="sc">📡 Tech Channel</a>
+          <a href="https://onimix.vercel.app/" target="_blank" class="sc">💻 Portfolio</a>
+          <a href="https://letshare.me?inviteCode=HESFLFOV" target="_blank" class="sc">💸 Earn Together</a>
+        </div>
+        <div class="flex gap-3 fw">
+          <a href="https://wa.link/9073zd" target="_blank" class="btn btn-g">💼 Get My Products</a>
+          <a href="https://wa.me/2348165071331" target="_blank" class="btn btn-o">💬 Chat Now</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AI TOOLS -->
+<section id="tools" class="section">
+  <div class="inner">
+    <p class="eyebrow">District 01 — 40+ Tools</p>
+    <h2 class="stitle gt-b">AI Tools Galaxy</h2>
+    <p class="ssub">40+ powerful AI platforms fully explained. Click any tool to explore tutorials, monetization ideas, and step-by-step learning paths.</p>
+    <div class="ts-row"><input class="ts-in" id="tsearch" placeholder="🔍 Search 40+ AI tools..." oninput="filterTools()"/></div>
+    <div class="tcats" id="tcats"></div>
+    <div class="tgrid" id="tgrid"></div>
+  </div>
+</section>
+
+<!-- TOOL MODAL -->
+<div class="modal" id="pmodal" onclick="closePM(event)">
+  <div class="modal-box">
+    <button class="mcl" onclick="closePM()">✕</button>
+    <div style="display:flex;align-items:center;gap:13px;margin-bottom:5px;">
+      <span id="micon" style="font-size:46px;"></span>
+      <div><div id="mtitle" style="font-family:'Bebas Neue',sans-serif;font-size:36px;letter-spacing:3px;"></div><div id="mtags" style="display:flex;gap:5px;flex-wrap:wrap;margin-top:4px;"></div></div>
+    </div>
+    <div class="mtabs">
+      <div class="mtab active" onclick="swTab(0)">Overview</div>
+      <div class="mtab" onclick="swTab(1)">Tutorials</div>
+      <div class="mtab" onclick="swTab(2)">Monetize</div>
+      <div class="mtab" onclick="swTab(3)">Path</div>
+    </div>
+    <div class="mcontent active" id="mt0"></div>
+    <div class="mcontent" id="mt1"></div>
+    <div class="mcontent" id="mt2"></div>
+    <div class="mcontent" id="mt3"></div>
+  </div>
+</div>
+
+<!-- PROMPTS -->
+<section id="prompts" class="section">
+  <div class="inner">
+    <p class="eyebrow">District 02 — 200+ Prompts</p>
+    <h2 class="stitle gt-p">Prompt Engineering Lab</h2>
+    <p class="ssub">200+ hand-crafted prompts — Marketing, Business, Photoshop image creation, Ads, Coding, Education, and Productivity. Copy and use instantly.</p>
+    <div class="ts-row"><input class="ts-in" id="psearch" placeholder="🔍 Search 200+ prompts..." oninput="filterPrompts()"/></div>
+    <div class="pf-wrap" id="pfWrap"></div>
+    <div class="pg" id="pg"></div>
+    <div class="pb-wrap reveal">
+      <div class="pb-title">⚡ AI Prompt Builder</div>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:16px;">Generate a perfect custom prompt in 30 seconds.</p>
+      <div class="pb-grid">
+        <div><label class="pb-lbl">Role / Persona</label>
+        <select class="pb-sel" id="pbRole">
+          <option value="an expert Nigerian digital marketer">Nigerian Digital Marketer</option>
+          <option value="a world-class copywriter">World-class Copywriter</option>
+          <option value="an AI automation specialist">AI Automation Specialist</option>
+          <option value="a creative content strategist">Content Strategist</option>
+          <option value="a business consultant for Nigerian SMEs">Nigerian Business Consultant</option>
+          <option value="a professional graphic designer and photo editor">Graphic Designer / Photo Editor</option>
+          <option value="a viral social media expert">Social Media Expert</option>
+          <option value="a performance marketing and ads specialist">Ads Specialist</option>
+          <option value="a full-stack software developer">Software Developer</option>
+        </select></div>
+        <div><label class="pb-lbl">Task / Goal</label><input class="pb-inp" id="pbTask" value="write viral Facebook posts about AI tools"/></div>
+      </div>
+      <div class="pb-grid">
+        <div><label class="pb-lbl">Target Audience</label><input class="pb-inp" id="pbAudience" value="Nigerian entrepreneurs aged 25-45"/></div>
+        <div><label class="pb-lbl">Output Format</label>
+        <select class="pb-sel" id="pbFormat">
+          <option value="a detailed step-by-step guide">Step-by-step guide</option>
+          <option value="a list of 10 viral ideas">10 viral ideas</option>
+          <option value="a persuasive social media post">Viral social post</option>
+          <option value="a full business plan">Business plan</option>
+          <option value="5 ready-to-use templates">5 templates</option>
+          <option value="a Midjourney/Photoshop prompt formula with style parameters">Image prompt formula</option>
+          <option value="a complete ad copy with headline, body, and CTA">Full ad copy</option>
+        </select></div>
+      </div>
+      <div class="pb-out" id="pbOut">Your generated prompt will appear here...</div>
+      <div class="flex gap-3 fw">
+        <button class="btn btn-p" onclick="buildPrompt()">⚡ Generate Prompt</button>
+        <button class="btn btn-o" onclick="copyBuilt()">📋 Copy</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MONETIZE -->
+<section id="monetize" class="section">
+  <div class="inner">
+    <p class="eyebrow">District 03</p>
+    <h2 class="stitle gt-g">Monetization Arena</h2>
+    <p class="ssub">Real income strategies working for Nigerians right now. From freelancing to building digital product empires.</p>
+    <div class="mg" id="moneyGrid"></div>
+    <div class="mt-10">
+      <p class="eyebrow" style="opacity:1;transform:none;">My Products</p>
+      <h3 style="font-family:'Bebas Neue',sans-serif;font-size:30px;letter-spacing:3px;color:var(--white);margin-bottom:7px;">Digital Products</h3>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:26px;">Proven resources to fast-track your AI income journey in Nigeria.</p>
+      <div class="prods-grid" id="prodsGrid"></div>
+    </div>
+  </div>
+</section>
+
+<!-- UNIVERSITY -->
+<section id="university" class="section">
+  <div class="inner">
+    <p class="eyebrow">District 04</p>
+    <h2 class="stitle gt-gr">ONIMIX University</h2>
+    <p class="ssub">Structured paths from zero to AI mastery. Earn XP, collect badges, complete daily challenges.</p>
+    <div class="dc-box reveal">
+      <div>
+        <div class="dc-lbl">🔥 Daily Challenge</div>
+        <div class="dc-title">Use AI to Write 7 Days of Content</div>
+        <p style="font-size:13px;color:var(--muted);margin-bottom:13px;">Use ChatGPT or Gemini to create a full week of Facebook Reel scripts. Post all 7 and track engagement growth.</p>
+        <a href="https://wa.link/mjp0j3" target="_blank" class="btn btn-p">Start Challenge →</a>
+      </div>
+      <div><div class="dc-num">+250</div><div class="dc-nlab">XP Reward</div></div>
+    </div>
+    <h3 style="font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:2px;color:var(--white);margin-bottom:18px;">Learning Paths</h3>
+    <div class="upaths" id="uniPaths"></div>
+    <h3 style="font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:2px;color:var(--white);margin:32px 0 14px;">Achievement Badges</h3>
+    <div class="badges-row" id="badgesRow"></div>
+  </div>
+</section>
+
+<!-- COMMUNITY -->
+<section id="community" class="section">
+  <div class="inner">
+    <p class="eyebrow">District 05</p>
+    <h2 class="stitle gt-gr">Community Nexus</h2>
+    <p class="ssub">Join a growing tribe of Nigerian AI creators. Share wins, get support, stay motivated.</p>
+    <div class="comm-grid">
+      <div class="ccard reveal-l"><div style="font-size:32px;margin-bottom:11px;">📡</div><h3 style="font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;color:var(--white);margin-bottom:6px;">WhatsApp Tech Channel</h3><p style="font-size:12px;color:var(--muted);line-height:1.7;margin-bottom:16px;">Get exclusive AI tips, tutorials, and tool updates anonymously. 100% free.</p><a href="https://whatsapp.com/channel/0029Vb6Hq0K7YSdCXtjgzt1x" target="_blank" class="btn btn-wa">📲 Join Channel</a></div>
+      <div class="ccard reveal-r"><div style="font-size:32px;margin-bottom:11px;">👗</div><h3 style="font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;color:var(--white);margin-bottom:6px;">SIMILOLA COLLECTION</h3><p style="font-size:12px;color:var(--muted);line-height:1.7;margin-bottom:16px;">Your ultimate style destination. Trendy outfits, unique designs, affordable fashion for every occasion.</p><a href="https://chat.whatsapp.com/EEIB5slkBvNIF982hQr8Ic" target="_blank" class="btn btn-g">👗 Join Community</a></div>
+      <div class="ccard reveal-l"><div style="font-size:32px;margin-bottom:11px;">💰</div><h3 style="font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;color:var(--white);margin-bottom:6px;">Earn Together</h3><p style="font-size:12px;color:var(--muted);line-height:1.7;margin-bottom:16px;">Join LetsShare and start earning with your network. Invite friends and grow income together.</p><a href="https://letshare.me?inviteCode=HESFLFOV" target="_blank" class="btn btn-o">💸 Start Earning</a></div>
+      <div class="ccard reveal-r"><div style="font-size:32px;margin-bottom:11px;">📘</div><h3 style="font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;color:var(--white);margin-bottom:6px;">Facebook Page</h3><p style="font-size:12px;color:var(--muted);line-height:1.7;margin-bottom:16px;">Daily AI tips, tools breakdowns, and money-making strategies for Nigerians.</p><a href="https://www.facebook.com/profile.php?id=61582275307275" target="_blank" class="btn btn-o" style="border-color:rgba(24,119,242,0.35);color:#4a9eff;">👍 Follow Page</a></div>
+    </div>
+    <h3 style="font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:2px;color:var(--white);margin:32px 0 14px;">Success Stories</h3>
+    <div class="stories" id="stories"></div>
+    <div class="nl-box reveal">
+      <div class="nl-title">Stay In The Loop</div>
+      <p class="nl-sub">Weekly AI tips, tool updates & income strategies. Free forever.</p>
+      <div class="nl-form"><input class="nl-inp" type="email" placeholder="your@email.com" id="nlEmail"/><button class="btn btn-p" onclick="subscribe()">Subscribe</button></div>
+    </div>
+  </div>
+</section>
+
+<!-- VAULT -->
+<section id="vault" class="section">
+  <div class="inner">
+    <p class="eyebrow">Resource Vault</p>
+    <h2 class="stitle gt-g">The Vault</h2>
+    <p class="ssub">Premium prompt packs, guides, cheat sheets, and AI workflow templates — all accessible.</p>
+    <div class="vg" id="vaultGrid"></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ft-in">
+    <div class="ft-top">
+      <div>
+        <div class="ft-brand">ONIMIX AIVERSE</div>
+        <p class="ft-bio">40+ AI tools, 200+ prompts, real income strategies. The Future of AI Belongs To Those Who Learn Early.</p>
+        <div class="flex gap-3 fw mt-4">
+          <a href="https://wa.link/mjp0j3" target="_blank" class="btn btn-p" style="font-size:11px;padding:8px 15px;">💬 WhatsApp</a>
+          <a href="mailto:mumeenonimisi@gmail.com" class="btn btn-o" style="font-size:11px;padding:8px 15px;">✉️ Email</a>
+        </div>
+      </div>
+      <div>
+        <div class="ft-ct">Districts</div>
+        <ul class="ft-links">
+          <li><a href="#tools">AI Tools Galaxy</a></li>
+          <li><a href="#prompts">Prompt Lab</a></li>
+          <li><a href="#monetize">Monetization Arena</a></li>
+          <li><a href="#university">University</a></li>
+          <li><a href="#community">Community</a></li>
+          <li><a href="#vault">Resource Vault</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="ft-ct">Products</div>
+        <ul class="ft-links">
+          <li><a href="https://wa.link/9073zd" target="_blank">Affiliate Toolkit</a></li>
+          <li><a href="https://wa.link/9073zd" target="_blank">Side Hustles eBook</a></li>
+          <li><a href="https://wa.link/9073zd" target="_blank">Facebook Domination</a></li>
+          <li><a href="https://nairaroots.vercel.app/" target="_blank">NairaRoots</a></li>
+          <li><a href="https://letshare.me?inviteCode=HESFLFOV" target="_blank">LetsShare Earn</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="ft-ct">Connect</div>
+        <ul class="ft-links">
+          <li><a href="https://www.facebook.com/profile.php?id=61582275307275" target="_blank">Facebook</a></li>
+          <li><a href="https://www.tiktok.com/@onimix999x" target="_blank">TikTok</a></li>
+          <li><a href="https://wa.link/mjp0j3" target="_blank">WhatsApp</a></li>
+          <li><a href="https://audiomack.com/onimix" target="_blank">Audiomack</a></li>
+          <li><a href="https://onimix.github.io/darktech-/" target="_blank">GitHub</a></li>
+          <li><a href="mailto:mumeenonimisi@gmail.com">Email</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="ft-bot">
+      <span class="ft-copy">© 2025 ONIMIX AIVERSE by Mumeen Onimix Dauda. All rights reserved. 🇳🇬</span>
+      <span class="ft-copy">The Future of AI Belongs To Those Who Learn Early</span>
+    </div>
+  </div>
+</footer>
+<script>
+// ══════════════════════════════════════════════
+// 40 AI TOOLS DATA
+// ══════════════════════════════════════════════
+const TOOLS=[
+  {id:'chatgpt',icon:'🤖',name:'ChatGPT',cat:'Writing',desc:'The world\'s most popular AI. Write, code, brainstorm, analyze — your ultimate assistant.',color:'rgba(0,255,136,0.06)',bc:'rgba(0,255,136,0.28)',tc:'#00ff88',tags:['OpenAI','Writing','Coding','Free'],overview:'ChatGPT by OpenAI is the most widely used AI assistant globally. It handles writing, analysis, coding, brainstorming, translations, and much more with remarkable capability.',tutorials:['Master prompt engineering basics','Build custom GPTs for your business','ChatGPT for Nigerian freelancers','Code with ChatGPT zero to hero','Business automation workflows'],monetize:['CV & cover letter writing service (₦5K-15K each)','AI copywriting for Nigerian businesses (₦50K+/month)','Custom GPT creation service','Content generation agency'],path:['Week 1: Core prompting mastery','Week 2: Advanced workflows','Week 3: Business applications','Month 2: Launch your AI service']},
+  {id:'gemini',icon:'♊',name:'Gemini',cat:'Research',desc:'Google\'s most capable AI. Perfect for research, deep analysis, and multimodal tasks.',color:'rgba(0,212,255,0.06)',bc:'rgba(0,212,255,0.28)',tc:'#00d4ff',tags:['Google','Research','Free','Multimodal'],overview:'Google Gemini is a powerful multimodal AI that processes text, images, audio, and code. It integrates deeply with Google\'s ecosystem including Docs, Drive, and YouTube.',tutorials:['Gemini Deep Research feature mastery','Gemini vs ChatGPT full comparison','Advanced prompting for Gemini 2.0','Gemini for content creators in Nigeria','Using Gemini with Google Workspace'],monetize:['Research-as-a-service for Nigerian businesses','Market analysis reports (₦50K+)','SEO content creation agency','Academic research support service'],path:['Day 1-3: Gemini basics & interface','Week 2: Advanced research mastery','Week 3: Content creation workflows','Month 2: Service launch']},
+  {id:'claude',icon:'🧠',name:'Claude',cat:'Writing',desc:'Anthropic\'s AI — exceptional for long documents, nuanced writing, and deep analysis.',color:'rgba(244,114,182,0.06)',bc:'rgba(244,114,182,0.28)',tc:'#f472b6',tags:['Anthropic','Writing','Long-form','Analysis'],overview:'Claude by Anthropic excels at nuanced understanding, processing very long documents, and delivering thoughtful professional responses. The best AI for serious writing tasks.',tutorials:['Claude vs ChatGPT detailed comparison','Long-form content mastery with Claude','Business writing and proposals','Document analysis workflow','Claude for ghostwriting services'],monetize:['Premium ghostwriting service (₦100K+/project)','Business proposal writing (₦30K-80K)','Long-form content creation','Technical documentation service'],path:['Week 1: Claude interface mastery','Week 2: Content creation','Week 3: Service offers','Month 2: First paying clients']},
+  {id:'midjourney',icon:'🎨',name:'Midjourney',cat:'Images',desc:'The most stunning AI image generator. Create photorealistic art and visuals from text.',color:'rgba(124,58,237,0.08)',bc:'rgba(124,58,237,0.28)',tc:'#a78bfa',tags:['Images','Art','Discord','Paid'],overview:'Midjourney creates breathtaking AI visuals and is the industry standard for AI-generated art and photography. Professionals worldwide use it for commercial creative work.',tutorials:['Midjourney v6 complete guide','Prompt formulas that produce magic','Style consistency techniques','Commercial use guide for Nigerian creators','Photorealistic portrait techniques'],monetize:['Logo & brand identity design (₦30K-150K)','Social media visual creation service','Stock image portfolio building','Client artwork commissions'],path:['Week 1: Basic prompting mastery','Week 2: Style and aesthetics','Week 3: Commercial projects','Month 2: Build client base']},
+  {id:'dalle',icon:'🖼️',name:'DALL-E 3',cat:'Images',desc:'OpenAI\'s image AI inside ChatGPT. Create precise concept-driven images from descriptions.',color:'rgba(255,107,0,0.06)',bc:'rgba(255,107,0,0.28)',tc:'#ff6b00',tags:['OpenAI','Images','ChatGPT','Free'],overview:'DALL-E 3 is integrated into ChatGPT and generates highly accurate images from detailed text. Great for precise, concept-driven visuals that require specific elements.',tutorials:['DALL-E 3 advanced prompting','Creating brand visuals with DALL-E','Product mockup generation','Logo concept creation','Combining ChatGPT with DALL-E'],monetize:['Quick logo concepts (₦10K-30K)','Product visualization for e-commerce','Marketing visuals for brands','Social media graphic packages'],path:['Day 1-3: Prompting fundamentals','Week 2: Commercial image creation','Week 3: Service package launch']},
+  {id:'stable-diffusion',icon:'🌊',name:'Stable Diffusion',cat:'Images',desc:'Open-source AI image generation. Free, powerful, fully customizable — runs locally.',color:'rgba(0,212,255,0.06)',bc:'rgba(0,212,255,0.18)',tc:'#00d4ff',tags:['Open Source','Free','Images','Advanced'],overview:'Stable Diffusion is a free, open-source image AI you can run locally or through platforms like Leonardo AI. It offers maximum creative control with no subscription fees.',tutorials:['Getting started completely free','ComfyUI workflow for professionals','ControlNet for precise control','Training custom models for brand consistency','Inpainting and outpainting techniques'],monetize:['Unlimited free image creation business','Custom AI model training service','Print-on-demand products empire','AI art licensing and selling'],path:['Week 1: Platform setup and basics','Week 2: Advanced controls mastery','Week 3: Commercial applications']},
+  {id:'firefly',icon:'🦋',name:'Adobe Firefly',cat:'Images',desc:'Adobe\'s AI for designers. Generative Fill in Photoshop creates professional-grade results.',color:'rgba(212,175,55,0.06)',bc:'rgba(212,175,55,0.28)',tc:'#D4AF37',tags:['Adobe','Photoshop','Design','Professional'],overview:'Adobe Firefly is enterprise-grade AI integrated into Photoshop and Illustrator. Its Generative Fill, Expand, and object tools make photo editing 10x faster.',tutorials:['Generative Fill complete mastery','Photoshop AI workflow revolution','Perfect background replacement','Object generation and removal','Commercial-safe image creation'],monetize:['Advanced photo retouching service (₦15K-50K)','Background replacement for product photos','Product photography enhancement','Professional editing retainer service'],path:['Week 1: Firefly and Photoshop basics','Week 2: Professional workflow mastery','Week 3: Client work launch']},
+  {id:'ideogram',icon:'🔡',name:'Ideogram',cat:'Images',desc:'AI image generator with PERFECT text rendering. Create images with readable text built in.',color:'rgba(0,255,136,0.06)',bc:'rgba(0,255,136,0.28)',tc:'#00ff88',tags:['Images','Text in Images','Design','Free'],overview:'Ideogram specializes in generating images with perfectly readable text embedded — solving the biggest challenge in AI image generation. Perfect for flyers and posters.',tutorials:['Text in image creation mastery','Logo design with text integration','Flyer and poster generation','Brand visual creation with text','Nigerian event graphic design'],monetize:['Flyer and poster design business (₦3K-15K each)','Logo creation with AI text (₦20K+)','Event graphic design packages','Product label and packaging design'],path:['Day 1: Text prompting techniques','Week 1: Design service setup','Week 2: Client acquisition']},
+  {id:'leonardo',icon:'🦁',name:'Leonardo AI',cat:'Images',desc:'Professional AI image platform. Game assets, concept art, and photorealistic images at scale.',color:'rgba(212,175,55,0.06)',bc:'rgba(212,175,55,0.28)',tc:'#D4AF37',tags:['Images','Professional','Free Credits','Game Art'],overview:'Leonardo AI is a professional platform with fine-tuned models, real-time generation, and a generous free daily credit system. Excellent for consistent brand visuals.',tutorials:['Getting free daily credits','Model selection for different styles','Real-time canvas for iteration','Game asset creation workflow','Brand consistency with fine-tuning'],monetize:['Professional illustration service','Game asset creation for developers','Consistent brand visual creation','Stock image portfolio building'],path:['Week 1: Platform mastery and free credits','Week 2: Specialization in a niche','Week 3: Commercial client work']},
+  {id:'runway',icon:'🎥',name:'Runway ML',cat:'Video',desc:'AI video generation and editing. Create cinematic videos from text and images.',color:'rgba(124,58,237,0.06)',bc:'rgba(124,58,237,0.28)',tc:'#a78bfa',tags:['Video','AI Generation','Cinematic','Creative'],overview:'Runway ML is the leading professional AI video creation platform. Text-to-video, image-to-video, and advanced AI editing tools for serious video creators.',tutorials:['Gen-2 text to video complete guide','Image to video transformation','AI-powered video editing','Cinematic storytelling techniques','Commercial brand video creation'],monetize:['AI video creation service (₦30K-150K)','Brand video production agency','Social media video packages','Short film and creative projects'],path:['Week 1: Platform mastery','Week 2: Project creation workflow','Week 3: Service launch and pricing']},
+  {id:'sora',icon:'🎬',name:'Sora',cat:'Video',desc:'OpenAI\'s revolutionary video AI. Generate stunning 60-second videos from text prompts.',color:'rgba(0,212,255,0.07)',bc:'rgba(0,212,255,0.28)',tc:'#00d4ff',tags:['OpenAI','Video','Revolutionary','Premium'],overview:'Sora by OpenAI generates realistic and creative videos up to 60 seconds from text descriptions. A complete game-changer for video content creators worldwide.',tutorials:['Sora prompt engineering techniques','Creating cinematic video scenes','Brand video creation workflow','Story-driven content for marketing','Storyboarding for Sora projects'],monetize:['Premium video creation service (₦100K+)','Advertising campaign content','Music video concept creation','Product showcase premium videos'],path:['Week 1: Access and prompt basics','Week 2: Cinematic techniques','Week 3: Commercial service launch']},
+  {id:'capcut',icon:'✂️',name:'CapCut AI',cat:'Video',desc:'AI video editing for Reels and TikTok. Create viral content without filming yourself.',color:'rgba(255,45,85,0.06)',bc:'rgba(255,45,85,0.28)',tc:'#ff2d55',tags:['Video','Reels','TikTok','Free'],overview:'CapCut AI makes professional video editing accessible with auto-captions, AI voiceovers, smart editing, background removal, and trending effects. Perfect for no-camera content.',tutorials:['AI voiceover complete setup guide','Creating Reels without a camera','Auto-caption workflow for engagement','Trending effects and transitions','Batch content creation system'],monetize:['Video editing service (₦5K-30K per video)','Reel creation for Nigerian businesses','YouTube Shorts channel management','Monthly content creator support packages'],path:['Day 1-3: Interface mastery','Week 2: AI features deep dive','Week 3: First client service','Month 2: Scale to multiple clients']},
+  {id:'invideo',icon:'📹',name:'InVideo AI',cat:'Video',desc:'AI-powered video creation from text. Choose a topic and get a full video in minutes.',color:'rgba(255,45,85,0.06)',bc:'rgba(255,45,85,0.28)',tc:'#ff2d55',tags:['Video','Text to Video','YouTube','Marketing'],overview:'InVideo AI creates complete videos from simple text prompts with stock footage, voiceover, captions, and music — ideal for faceless YouTube channels and marketing.',tutorials:['Text to video complete workflow','Faceless YouTube channel creation','Social media video batch production','Marketing video rapid creation','Brand template building'],monetize:['Faceless YouTube channel service','Marketing video production packages','Educational content creation','Social media video management agency'],path:['Week 1: Core workflow mastery','Week 2: YouTube content strategy','Week 3: Service packages and pricing']},
+  {id:'heygen',icon:'👤',name:'HeyGen',cat:'Video',desc:'AI video avatar creation. Clone your voice and face for multilingual video content.',color:'rgba(255,107,0,0.06)',bc:'rgba(255,107,0,0.28)',tc:'#ff6b00',tags:['Video','Avatar','Voice Clone','Translation'],overview:'HeyGen creates realistic AI avatar videos and can translate existing videos into 40+ languages with perfect lip-sync. No camera needed for professional presenter videos.',tutorials:['Avatar creation complete guide','Video translation to multiple languages','Voice cloning setup and use','Batch video creation workflow','Corporate training video production'],monetize:['Video translation service (₦20K per video)','Avatar video creation for brands','Multilingual content production agency','Corporate training video packages'],path:['Week 1: Platform setup and avatar creation','Week 2: Specialization and positioning','Week 3: Client acquisition']},
+  {id:'elevenlabs',icon:'🎤',name:'ElevenLabs',cat:'Audio',desc:'AI voice generation that sounds completely human. Instant professional voiceovers.',color:'rgba(0,255,136,0.06)',bc:'rgba(0,255,136,0.28)',tc:'#00ff88',tags:['Voice','Audio','Creator','Free'],overview:'ElevenLabs creates incredibly realistic AI voices from text. Use it for voiceovers, podcasts, video narration, and any audio content without recording yourself.',tutorials:['Free plan complete guide','Creating and customizing voices','Batch voiceover production workflow','Voice cloning for personal brand','Multilingual voiceover creation'],monetize:['Voiceover service for videos (₦3K-20K)','Audiobook narration service','Podcast production and editing','Corporate training audio creation'],path:['Day 1-2: Platform setup','Week 1: Voice creation mastery','Week 2: First client projects']},
+  {id:'perplexity',icon:'🔍',name:'Perplexity',cat:'Research',desc:'AI-powered search with real-time citations. The future of research and fact-finding.',color:'rgba(0,212,255,0.06)',bc:'rgba(0,212,255,0.18)',tc:'#00d4ff',tags:['Search','Research','Free','Real-time'],overview:'Perplexity combines AI with real-time web search to give cited, accurate answers. It\'s transforming how professionals research topics with up-to-date sourced information.',tutorials:['Advanced research techniques','Using Perplexity Pro features','Building comprehensive research workflows','Fact-checking and verification','Combining Perplexity with other AI tools'],monetize:['Research-as-a-service for Nigerian businesses','Market intelligence and competitor reports','Fact-checking service for publishers','Competitive analysis reports'],path:['Day 1-3: Platform basics','Week 2: Research workflow mastery','Week 3: Service packaging']},
+  {id:'canva',icon:'🖌️',name:'Canva AI',cat:'Design',desc:'Design anything with AI. Magic Design, text-to-image, and instant brand creation.',color:'rgba(0,212,255,0.06)',bc:'rgba(212,175,55,0.28)',tc:'#D4AF37',tags:['Design','Free','Templates','Brand'],overview:'Canva AI democratizes professional design with Magic Design, AI image generation, background remover, and smart layout tools. Perfect for Nigerian entrepreneurs and creators.',tutorials:['Magic Design feature complete guide','Brand kit creation and management','Canva AI image generation tools','Presentation and pitch deck design','Social media template systems'],monetize:['Social media management service (₦50K+/month)','Flyer and banner design business (₦3K-15K each)','Pitch deck and presentation design','Complete brand identity packages'],path:['Day 1-2: Interface mastery','Week 1: AI tools deep dive','Week 2: Service setup','Week 3: First paying clients']},
+  {id:'notebooklm',icon:'📓',name:'NotebookLM',cat:'Research',desc:'Google\'s AI research tool. Upload any document and have deep AI conversations with it.',color:'rgba(0,212,255,0.06)',bc:'rgba(0,212,255,0.18)',tc:'#00d4ff',tags:['Google','Research','Free','Documents'],overview:'NotebookLM by Google lets you upload PDFs, documents, and notes, then use AI to analyze, summarize, and extract deep insights. It even generates podcasts from your documents.',tutorials:['Document upload and analysis guide','Research workflow optimization','Podcast generation from documents','Multi-source comparative analysis','Business report creation'],monetize:['Document analysis service for legal/business','Research summarization service','Business intelligence report creation','Academic support service'],path:['Day 1: Setup and first document','Week 1: Advanced research techniques','Week 2: Service creation and launch']},
+  {id:'copilot',icon:'🤝',name:'Microsoft Copilot',cat:'Productivity',desc:'AI inside Microsoft Office. Supercharge Excel, Word, PowerPoint and Teams with AI.',color:'rgba(0,136,204,0.06)',bc:'rgba(0,136,204,0.28)',tc:'#0088cc',tags:['Microsoft','Office','Productivity','Free'],overview:'Microsoft Copilot integrates AI into the entire Microsoft 365 ecosystem, making documents, spreadsheets, presentations, and team communication dramatically smarter.',tutorials:['Copilot in Word for documents','Excel AI formula generation','PowerPoint slide generation','Teams meeting summaries','Business automation with Copilot'],monetize:['Office automation consulting (₦100K+)','Document creation service','Business productivity training','Excel automation specialist'],path:['Week 1: Office ecosystem integration','Week 2: Automation and efficiency mastery']},
+  {id:'notion-ai',icon:'📝',name:'Notion AI',cat:'Productivity',desc:'AI inside your workspace. Write, summarize, organize, and automate everything intelligently.',color:'rgba(255,255,255,0.06)',bc:'rgba(255,255,255,0.18)',tc:'#f0f4ff',tags:['Notion','Productivity','Writing','Organization'],overview:'Notion AI brings intelligent writing, summarization, database creation, and organization directly into the most popular workspace tool used by modern businesses.',tutorials:['AI writing features in Notion','Database and system automation','Meeting notes and summaries','Project planning with AI','Knowledge base creation'],monetize:['Business system setup consulting','Notion workspace design service','Knowledge base creation for companies','Team productivity system implementation'],path:['Week 1: Notion AI basics','Week 2: Advanced automation','Week 3: Consulting service launch']},
+  {id:'jasper',icon:'📢',name:'Jasper AI',cat:'Marketing',desc:'AI marketing copywriter. Generate ads, emails, blog posts, and social content at scale.',color:'rgba(255,107,0,0.06)',bc:'rgba(255,107,0,0.28)',tc:'#ff6b00',tags:['Marketing','Copywriting','Ads','Professional'],overview:'Jasper is a purpose-built AI for marketing teams that generates high-converting copy for ads, email campaigns, social posts, and long-form content at production scale.',tutorials:['Ad copy creation with Jasper','Email sequence building','Blog post generation workflow','Brand voice training and consistency','Long-form content production'],monetize:['Marketing agency service (₦100K+/month)','Email marketing campaign creation','Ad copy writing service (₦20K+ per project)','Content marketing retainer packages'],path:['Week 1: Platform setup and features','Week 2: Copywriting specialization','Week 3: Agency model launch']},
+  {id:'cursor',icon:'💻',name:'Cursor AI',cat:'Coding',desc:'AI-powered code editor. Write, debug, and build software with AI that understands your codebase.',color:'rgba(0,212,255,0.06)',bc:'rgba(0,212,255,0.28)',tc:'#00d4ff',tags:['Coding','Editor','Developer','AI'],overview:'Cursor is an AI-first code editor that understands your entire codebase and helps you write, edit, and debug code dramatically faster. It\'s transforming software development.',tutorials:['Cursor setup and configuration for beginners','Building full web apps fast','AI debugging and refactoring techniques','Full-stack project development with Cursor','No experience to deployed app workflow'],monetize:['Web development freelance service (₦50K-500K)','App development agency','Automation script writing service','Technical consulting and code review'],path:['Week 1: Editor setup and basics','Week 2: First complete projects','Month 2: Freelance client acquisition']},
+  {id:'bolt',icon:'⚡',name:'Bolt.new',cat:'Coding',desc:'Build full web apps from text prompts in seconds. Zero coding required — just describe it.',color:'rgba(255,214,10,0.06)',bc:'rgba(255,214,10,0.28)',tc:'#ffd60a',tags:['No-Code','Web Apps','Fast','Free'],overview:'Bolt.new by StackBlitz lets anyone build production-ready full-stack web applications from simple text descriptions. Deploy instantly to the web without any coding knowledge.',tutorials:['Building your first web app in minutes','SaaS product creation from an idea','Landing page generation and optimization','API integration without coding','Iterating and improving with AI'],monetize:['Web app creation service (₦20K-300K)','SaaS MVP building for startups','Landing page creation service','Client dashboard and tool building'],path:['Day 1: First complete app built','Week 1: Complex project types','Week 2: Client service packaging']},
+  {id:'lovable',icon:'💖',name:'Lovable',cat:'Coding',desc:'Build production-ready React apps with AI. From idea to deployed app in minutes.',color:'rgba(244,114,182,0.06)',bc:'rgba(244,114,182,0.28)',tc:'#f472b6',tags:['React','No-Code','Web App','Deploy'],overview:'Lovable generates beautiful production-ready React applications from natural language. It handles the frontend, backend connections, and deployment automatically.',tutorials:['React app creation from description','Beautiful UI generation with AI','Database integration with Supabase','Custom component building and styling','One-click deployment workflow'],monetize:['React app development service (₦50K+)','SaaS product creation for clients','Web application agency business','Custom business tool building'],path:['Week 1: App building fundamentals','Week 2: Complex features and integrations','Week 3: Client service launch']},
+  {id:'gamma',icon:'📊',name:'Gamma',cat:'Productivity',desc:'AI presentation creator. Generate stunning slides, websites, and documents instantly.',color:'rgba(0,212,255,0.06)',bc:'rgba(0,212,255,0.2)',tc:'#00d4ff',tags:['Presentations','Slides','Documents','Free'],overview:'Gamma generates professional presentations, documents, and web pages from simple text prompts with beautiful modern designs. The fastest presentation tool on earth.',tutorials:['Instant presentation generation','Document creation workflow','Web page builder with Gamma','Brand customization techniques','Pitch deck creation for startups'],monetize:['Presentation design service (₦15K-50K)','Business pitch deck creation','Workshop and training material design','Investor presentation packages'],path:['Day 1: First presentation created','Week 1: Professional design mastery','Week 2: Client service launch']},
+  {id:'synthesia',icon:'🎭',name:'Synthesia',cat:'Video',desc:'Create AI presenter videos with 140+ AI avatars. Professional training and explainer videos.',color:'rgba(0,212,255,0.06)',bc:'rgba(0,212,255,0.28)',tc:'#00d4ff',tags:['Video','Avatar','Training','Corporate'],overview:'Synthesia creates professional presenter videos using AI avatars. No camera or studio needed — just type your script, choose an avatar, and get a broadcast-quality video.',tutorials:['Creating your first AI presenter video','Avatar selection and customization','Script optimization for AI delivery','Corporate training video production','Multi-language video creation'],monetize:['Corporate training video service (₦50K+)','Explainer video production agency','e-Learning content creation','Product demo and onboarding videos'],path:['Week 1: Platform fundamentals','Week 2: Corporate project types','Week 3: Agency service launch']},
+  {id:'descript',icon:'🎙️',name:'Descript',cat:'Audio',desc:'Edit audio and video by editing text. The most intuitive podcast and video editor ever built.',color:'rgba(0,255,136,0.06)',bc:'rgba(0,255,136,0.28)',tc:'#00ff88',tags:['Podcast','Video','Audio','Editing'],overview:'Descript lets you edit audio and video content by editing the transcript text. AI overdub, filler word removal, studio sound, and screen recording included.',tutorials:['Podcast editing complete workflow','Filler word removal automation','Studio Sound AI enhancement','Video editing through transcript','Repurposing content for multiple platforms'],monetize:['Podcast production service (₦20K-80K/month)','Video editing and repurposing agency','Audio cleanup and enhancement service','Content repurposing packages'],path:['Week 1: Core editing features','Week 2: Podcast production mastery']},
+  {id:'chatpdf',icon:'📄',name:'ChatPDF',cat:'Research',desc:'Upload any PDF and have an intelligent AI conversation with its contents instantly.',color:'rgba(0,255,136,0.06)',bc:'rgba(0,255,136,0.18)',tc:'#00ff88',tags:['PDF','Research','Free','Documents'],overview:'ChatPDF lets you upload any PDF — textbooks, reports, contracts, research papers — and instantly have intelligent conversations to extract the information you need.',tutorials:['Contract analysis workflow','Research paper rapid extraction','Business report conversation','Textbook study system creation','Legal document review process'],monetize:['Document analysis service for businesses','Research extraction service','Legal document review assistance','Study material creation service'],path:['Day 1: Upload and conversation basics','Week 1: Service workflow creation']},
+  {id:'grok',icon:'🔮',name:'Grok',cat:'Writing',desc:'xAI\'s witty, real-time AI with live X/Twitter data. Unfiltered, current, and insightful.',color:'rgba(255,45,85,0.06)',bc:'rgba(255,45,85,0.28)',tc:'#ff2d55',tags:['xAI','Real-time','Twitter/X','Witty'],overview:'Grok by xAI has direct access to real-time X (Twitter) data and provides current information with a distinctive bold personality unlike other AI models.',tutorials:['Grok for trend research and analysis','Real-time news summarization','Viral content idea generation','Social media monitoring','Current events content creation'],monetize:['Trend analysis reports for brands','Social media monitoring service','Real-time content creation agency','Market sentiment analysis'],path:['Week 1: Platform and real-time features','Week 2: Content strategy services']},
+  {id:'adobe-podcast',icon:'🎵',name:'Adobe Podcast',cat:'Audio',desc:'Enhance audio quality with AI. Make any recording sound like a professional studio.',color:'rgba(212,175,55,0.06)',bc:'rgba(212,175,55,0.28)',tc:'#D4AF37',tags:['Podcast','Audio Enhancement','Free','Adobe'],overview:'Adobe Podcast AI enhances microphone quality, removes all background noise, and makes any recording sound studio professional in seconds — completely free.',tutorials:['Complete audio enhancement guide','Background noise removal workflow','Podcast launch from zero guide','Remote interview quality fixing','Voice recording best practices'],monetize:['Podcast audio cleanup service (₦5K-20K)','Remote recording quality enhancement','Podcast production full-service agency'],path:['Day 1: Setup and first enhancement','Week 1: Service workflow','Week 2: Client acquisition']},
+  {id:'github-copilot',icon:'🐙',name:'GitHub Copilot',cat:'Coding',desc:'AI pair programmer inside VS Code. Autocomplete functions and write code faster than ever.',color:'rgba(124,58,237,0.06)',bc:'rgba(124,58,237,0.28)',tc:'#a78bfa',tags:['Coding','GitHub','Developer','VS Code'],overview:'GitHub Copilot is an AI pair programmer that suggests code completions, writes entire functions, generates tests, and helps debug across all programming languages.',tutorials:['Copilot setup in VS Code','Efficient prompting for code generation','Test generation automation','Documentation writing with AI','Complex algorithm implementation'],monetize:['Software development freelance (₦100K+/project)','Code review and audit service','Technical consulting','Automation script writing'],path:['Week 1: Integration and workflow','Week 2: Production coding mastery']},
+  {id:'d-id',icon:'🎭',name:'D-ID',cat:'Video',desc:'Animate any photo to speak. Create talking AI avatars from still images instantly.',color:'rgba(255,45,85,0.06)',bc:'rgba(255,45,85,0.28)',tc:'#ff2d55',tags:['Avatar','Talking Photos','Video','Marketing'],overview:'D-ID brings still photographs to life as talking, animated AI avatars with lip-sync. Perfect for personalized marketing videos and interactive content.',tutorials:['Animated avatar creation guide','Script writing for avatar delivery','Personalized video campaign creation','Brand mascot animation','Historical figure recreations'],monetize:['Personalized video messages service','Marketing avatar video production','Educational animated content','Corporate communication videos'],path:['Week 1: Platform and avatar mastery','Week 2: Commercial project types']},
+  {id:'pictory',icon:'🎞️',name:'Pictory',cat:'Video',desc:'Turn blog posts and scripts into engaging short videos automatically with AI magic.',color:'rgba(0,255,136,0.06)',bc:'rgba(0,255,136,0.18)',tc:'#00ff88',tags:['Video','Blog to Video','Automation','YouTube'],overview:'Pictory automatically converts text content, blog posts, and scripts into short engaging videos with stock footage, captions, and professional music.',tutorials:['Blog to video conversion workflow','Script to video production guide','Brand customization for consistency','SEO video content creation','Social media repurposing system'],monetize:['Blog-to-video conversion service','YouTube channel video production','Social media video repurposing agency','Educational video creation'],path:['Week 1: Automation workflow setup','Week 2: Content strategy and scale']},
+  {id:'murf',icon:'🔊',name:'Murf AI',cat:'Audio',desc:'Professional AI voiceover studio. 120+ natural voices in multiple languages and accents.',color:'rgba(255,107,0,0.06)',bc:'rgba(255,107,0,0.28)',tc:'#ff6b00',tags:['Voice','Professional','Multilingual','Studio'],overview:'Murf AI offers studio-quality voiceovers with 120+ realistic voices across many languages. Perfect for video narration, explainer videos, e-learning, and presentations.',tutorials:['Voice selection and customization','Script to voice complete workflow','Video synchronization feature','Commercial project production guide'],monetize:['YouTube channel narration service','Corporate explainer video production','E-learning audio content creation','Advertisement voiceover service'],path:['Day 1: Platform and voice exploration','Week 1: Professional production workflow','Week 2: Service packages']},
+  {id:'writesonic',icon:'✍️',name:'Writesonic',cat:'Writing',desc:'AI writing tool for blogs, ads, and social media. 80+ templates for every writing need.',color:'rgba(0,255,136,0.06)',bc:'rgba(0,255,136,0.18)',tc:'#00ff88',tags:['Writing','Templates','Blog','Ads'],overview:'Writesonic provides 80+ AI writing templates covering everything from blog articles to Facebook ads, email campaigns, product descriptions, and landing pages.',tutorials:['Blog article generation system','Facebook ad copy creation','Email marketing sequence writing','Product description optimization','Landing page copy generation'],monetize:['Blog writing service (₦15K-50K per post)','Ad copy packages for businesses','Email campaign creation service','Product listing writing for e-commerce'],path:['Week 1: Template mastery and workflow','Week 2: Niche specialization','Week 3: Client acquisition strategy']},
+  {id:'pika',icon:'⚡',name:'Pika',cat:'Video',desc:'Turn images and text into stunning animated videos. Fast, creative, and impressive.',color:'rgba(255,214,10,0.06)',bc:'rgba(255,214,10,0.28)',tc:'#ffd60a',tags:['Video','Animation','Fast','Creative'],overview:'Pika converts still images into animated videos and creates short video clips from text prompts with excellent quality and impressive creative results.',tutorials:['Image to video transformation guide','Text to video creative techniques','Animation for brand marketing','Product showcase video creation'],monetize:['Social media animation service','Product showcase video creation','Brand intro and logo animation','Animated advertisement production'],path:['Week 1: Core features mastery','Week 2: Commercial project workflow']},
+  {id:'luma',icon:'💫',name:'Luma AI',cat:'Video',desc:'Photorealistic AI video generation. Create dream-like cinematic video content.',color:'rgba(124,58,237,0.06)',bc:'rgba(124,58,237,0.28)',tc:'#a78bfa',tags:['Video','Cinematic','Photorealistic','Creative'],overview:'Luma AI creates stunning photorealistic video content from text and image prompts. Its Dream Machine produces some of the highest quality AI video available.',tutorials:['Dream Machine prompting mastery','Cinematic techniques and styles','Brand video story creation','Motion and physics control'],monetize:['Premium cinematic video creation service','Brand campaign production','Creative advertising content','Music video concept production'],path:['Week 1: Prompting and quality mastery','Week 2: Premium commercial projects']},
+  {id:'tome',icon:'📖',name:'Tome',cat:'Productivity',desc:'AI-native storytelling and presentation tool. Create compelling narratives with visuals.',color:'rgba(124,58,237,0.06)',bc:'rgba(124,58,237,0.18)',tc:'#a78bfa',tags:['Storytelling','Presentations','Narrative','Brand'],overview:'Tome creates AI-powered narrative documents and presentations that blend text and visuals into compelling stories for brand, business, and creative purposes.',tutorials:['Brand narrative creation','Business case study storytelling','Portfolio and showcase building','Investor narrative development'],monetize:['Brand storytelling service','Business case study creation','Portfolio design and narrative','Startup pitch narrative writing'],path:['Week 1: Storytelling techniques','Week 2: Commercial client projects']},
+  {id:'kling',icon:'🌊',name:'Kling AI',cat:'Video',desc:'Chinese AI video powerhouse. Hyper-realistic 5-second to 2-minute video generation.',color:'rgba(0,212,255,0.06)',bc:'rgba(0,212,255,0.2)',tc:'#00d4ff',tags:['Video','Realistic','Free Credits','Kuaishou'],overview:'Kling AI from Kuaishou produces some of the most physically realistic AI video clips available, with free credits to get started creating impressive content.',tutorials:['Getting and maximizing free credits','Realistic video prompt engineering','Motion control and physics','Commercial content creation'],monetize:['Realistic video content creation service','Product demonstration videos','Social media video agency'],path:['Week 1: Platform access and prompting','Week 2: Production and monetization']},
+  {id:'copy-ai',icon:'📋',name:'Copy.ai',cat:'Marketing',desc:'AI copy generation for sales, marketing, and brand content. Fast, reliable, effective.',color:'rgba(124,58,237,0.06)',bc:'rgba(124,58,237,0.28)',tc:'#a78bfa',tags:['Copywriting','Marketing','Sales','Templates'],overview:'Copy.ai specializes in marketing copy, sales content, and brand messaging with an extensive template library that covers virtually every copywriting need.',tutorials:['Sales copy generation system','Social media caption creation','Product description writing','Email sequence development'],monetize:['Sales page copywriting service','Social media content management','E-commerce product listing optimization','Brand messaging development'],path:['Week 1: Core features and templates','Week 2: Service specialization','Week 3: Client acquisition']},
+  {id:'beautiful-ai',icon:'✨',name:'Beautiful.ai',cat:'Productivity',desc:'Smart presentation software. AI designs slides automatically as you add your content.',color:'rgba(255,107,0,0.06)',bc:'rgba(255,107,0,0.28)',tc:'#ff6b00',tags:['Presentations','Smart Design','Business','Professional'],overview:'Beautiful.ai automatically designs presentation slides using AI-powered smart templates that adapt and rebalance as you add and edit content.',tutorials:['Smart slide creation fundamentals','Brand presentation excellence','Data visualization and charts','Pitch deck design workflow'],monetize:['Corporate presentation design service','Business pitch deck creation (₦50K+)','Training material design','Annual report and strategy decks'],path:['Week 1: Core platform features','Week 2: Professional client projects']},
+  {id:'notegpt',icon:'⚡',name:'NoteGPT',cat:'Research',desc:'Summarize YouTube videos and articles with AI. Get insights without watching hours of content.',color:'rgba(0,212,255,0.06)',bc:'rgba(0,212,255,0.18)',tc:'#00d4ff',tags:['Summary','YouTube','Articles','Free'],overview:'NoteGPT summarizes YouTube videos, articles, and web pages instantly, giving you key insights without needing to consume the full content. A research accelerator.',tutorials:['YouTube video summarization workflow','Article summary system','Research acceleration techniques','Note-taking and knowledge management'],monetize:['Research summarization service','Content curation newsletter business','Market research report creation','Study guide and resource creation'],path:['Day 1: Workflow setup and testing','Week 1: Research service creation']}
+];
+
+// ══════════════════════════════════════════════
+// 200+ PROMPTS DATA (Sample set — full categories)
+// ══════════════════════════════════════════════
+const PROMPTS=[
+  // MARKETING
+  {cat:'Marketing',title:'Viral Facebook Post Hook',text:'You are an expert Nigerian social media marketer. Write 10 viral Facebook post hooks about [topic] targeting Nigerian entrepreneurs aged 25-45. Each hook must create immediate curiosity, use relatable Nigerian language, and stop the scroll instantly. Include emojis strategically and ensure each hook is unique in approach.'},
+  {cat:'Marketing',title:'30-Day Content Calendar',text:'Create a detailed 30-day social media content calendar for a Nigerian [niche] creator. Include post ideas, captions, optimal posting times in WAT, hashtag clusters for each post, and content types (Reels, posts, stories) for both Facebook and TikTok. Make every post concept specific and actionable.'},
+  {cat:'Marketing',title:'Email Sales Sequence (5 Emails)',text:'Write a complete 5-email sales sequence for [product] targeting Nigerian [audience]. Email 1: Value-packed hook with no selling. Email 2: Pain point agitation with story. Email 3: Nigerian social proof and testimonials. Email 4: Full offer reveal with bonuses. Email 5: Final urgency and scarcity close. Use conversational Nigerian English throughout.'},
+  {cat:'Marketing',title:'WhatsApp Broadcast Campaign',text:'Write 7 WhatsApp broadcast messages for [product/service] targeting Nigerian customers. Each message should feel personal and non-spammy, have a strong hook, clear benefit, social proof element, limited-time urgency, and easy response CTA. Space them across a week. Keep each under 200 words.'},
+  {cat:'Marketing',title:'Facebook Ad Copy (3 Variations)',text:'Write 3 high-converting Facebook ad copy variations for [product] targeting Nigerians aged [age range]. Variation 1: Fear of missing out angle. Variation 2: Aspiration and dream outcome angle. Variation 3: Problem-solution transformation angle. For each: attention-grabbing headline, body text, social proof line, and strong CTA.'},
+  {cat:'Marketing',title:'TikTok/Reel Script (60 Seconds)',text:'Write a 60-second TikTok/Facebook Reel script for [topic] targeting Nigerian [audience]. Include: hook line for first 3 seconds (must be shocking or curious), problem identification (8 seconds), solution reveal (10 seconds), proof or demonstration (20 seconds), call-to-action (7 seconds). Add visual direction notes for each section.'},
+  {cat:'Marketing',title:'Product Launch 7-Day Campaign',text:'Design a 7-day product launch campaign for [product] targeting Nigerians. Day 1: Teaser with mystery. Day 2: Problem spotlight. Day 3: Solution reveal. Day 4: Testimonials/proof day. Day 5: Bonuses announcement. Day 6: Scarcity/countdown. Day 7: Last chance close. Provide full captions for each day across Facebook and WhatsApp.'},
+  {cat:'Marketing',title:'Sales Page Copy',text:'Write a complete sales page for [product/service] targeting Nigerian [audience]. Include: power headline, subheadline, problem section with agitation, solution reveal, 10+ specific benefits (not features), social proof with Nigerian testimonials, creator authority story, complete offer details with bonuses, FAQ section, money-back guarantee, and 3 different CTA buttons throughout.'},
+  {cat:'Marketing',title:'Brand Story Template',text:'Write a compelling brand origin story for [business name] in Nigeria. Structure: The founder\'s painful before moment, the unexpected discovery or turning point, the mission that was born, early struggles and how they were overcome, first major wins and impact, current transformation of customers, and the bold future vision. Make it emotionally engaging and 100% authentic.'},
+  {cat:'Marketing',title:'Influencer Outreach DM',text:'Write 3 DM templates for reaching out to Nigerian micro-influencers (5K-100K followers) for [brand/product] collaboration. Template 1: Straightforward business proposal. Template 2: Fan appreciation approach that transitions to business. Template 3: Value-first approach offering free product. Each should feel genuine, specify deliverables, and include compensation structure.'},
+  {cat:'Marketing',title:'YouTube Video Script',text:'Write a compelling YouTube video script for "[video title]" targeting Nigerian [audience]. Include: attention-grabbing intro hook (first 30 seconds must retain), main content in 3-5 clear sections with smooth transitions, expert tips with real Nigerian examples, engagement prompts throughout, and a strong outro with subscribe CTA. Add timestamps for each section.'},
+  {cat:'Marketing',title:'Newsletter Welcome Sequence',text:'Write a 5-email welcome sequence for new subscribers to [newsletter topic]. Email 1: Instant welcome + deliver promised freebie + set expectations. Email 2: Your personal story and why this matters. Email 3: Your best free resources and tools. Email 4: Community and social media invitation. Email 5: First relevant paid offer introduction. Keep each email under 400 words with a Nigerian voice.'},
+  {cat:'Marketing',title:'20 Reel Hook Templates',text:'Generate 20 Reel/TikTok hook templates for Nigerian [niche] content creators. Include: 5 curiosity hooks, 5 shock/controversy hooks, 5 question hooks that demand an answer, and 5 story hooks that create suspense. Each hook must work in under 3 seconds and be specifically relevant to a Nigerian audience. Label each hook type clearly.'},
+  {cat:'Marketing',title:'Personal Brand Statement',text:'Create a powerful personal brand statement for a Nigerian [profession/niche] professional. Provide: 1-line version (for Instagram bio), 3-line version (for email signature), full paragraph version (for About page), and elevator pitch version (for networking events). Each version should communicate: who you are, who you help, what you help them achieve, and your unique Nigerian perspective.'},
+  {cat:'Marketing',title:'Competitor Analysis Framework',text:'Create a complete competitor analysis framework for a Nigerian [business type]. Include: list of 5 direct competitors to research, 10 specific data points to capture for each (pricing, content strategy, audience size, engagement rate, USP, weaknesses, etc.), SWOT comparison matrix template, gaps in the market to exploit, and your differentiation strategy based on findings.'},
+  // BUSINESS
+  {cat:'Business',title:'Business Plan Generator',text:'Create a detailed business plan for a [business type] targeting [audience] in Nigeria. Include: executive summary, market size estimate with Nigerian data, competitive landscape analysis, unique value proposition, revenue model with multiple streams, detailed startup costs in Naira, month-by-month 12-month revenue projections, customer acquisition strategy, team requirements, and key risk factors with mitigation.'},
+  {cat:'Business',title:'Investor Pitch Deck Script',text:'Write a compelling 10-slide investor pitch deck script for [startup] in Nigeria. Cover: Problem (with data), Solution (your product), Market Opportunity (TAM/SAM/SOM for Nigeria), Product Demo (describe visuals), Business Model (how you make money), Traction (current metrics), Team (why you win), Financial Projections (3-year), Use of Funds (breakdown), and The Ask (amount and terms).'},
+  {cat:'Business',title:'Pricing Strategy Framework',text:'Design a complete pricing strategy for [product/service] in Nigeria. Include: current market positioning analysis, competitor price research template, value-based pricing calculation worksheet, price psychology tactics (₦9,997 vs ₦10,000), three-tier packaging structure (Basic/Standard/Premium) with specific price points, how to justify premium pricing, and a quarterly price review system.'},
+  {cat:'Business',title:'Customer Persona Builder',text:'Create 3 detailed customer personas for a Nigerian [business type]. For each persona include: full name and demographics, daily schedule in Nigerian context, income level and spending habits, top 5 pain points with emotional intensity ratings, top 5 goals and dreams, preferred social media platforms and content types, objections to buying your product, and what message would convert them instantly.'},
+  {cat:'Business',title:'Freelance Rate Calculator',text:'Help me calculate appropriate freelance rates for a Nigerian [skill/profession] with [X years] experience. Include: Nigerian market rate research for my skill, international rate comparison and how to access global clients, hourly rate vs project rate calculation with examples, how to present rates confidently to clients, a rate increase roadmap for the next 2 years, and a professional invoice template.'},
+  {cat:'Business',title:'Revenue Model Generator',text:'Generate 10 different revenue model options for a Nigerian [business type]. For each model: explain the mechanism clearly, estimate realistic earning potential in Naira, rate ease of implementation (1-10) for a Nigerian entrepreneur, list minimum required resources to start, identify the ideal first customer type, and provide a 30-day action plan to generate first revenue.'},
+  {cat:'Business',title:'Client Contract Template',text:'Draft a professional service contract template for a Nigerian [freelancer/agency] offering [service]. Include: complete scope of work definition, specific deliverables with formats, project timeline with milestones, payment schedule in Naira with late payment clauses, revision policy (number of rounds), intellectual property ownership clause, confidentiality agreement, termination conditions, and professional signature block.'},
+  {cat:'Business',title:'Standard Operating Procedure',text:'Create a detailed Standard Operating Procedure (SOP) for [business process] at a Nigerian [business type]. Include: purpose and scope statement, step-by-step instructions numbered clearly, responsible party for each step, quality control checkpoints with standards, tools and resources needed, common problems and solutions, time estimate for the full process, and success metrics to measure completion.'},
+  {cat:'Business',title:'Business Name Generator',text:'Generate 20 creative and memorable business names for a Nigerian [type of business]. For each name: explain the meaning and why it works for a Nigerian audience, suggest a tagline that completes the brand, provide .com and .ng domain alternatives, rate memorability (1-10), rate market positioning (1-10), and flag any potential cultural sensitivity issues for a Nigerian context.'},
+  {cat:'Business',title:'30-Day Client Acquisition Plan',text:'Create a detailed 30-day client acquisition plan for a Nigerian [freelancer/business] with zero budget. Week 1: Foundation and visibility setup. Week 2: Outreach and networking. Week 3: Follow-up and conversion. Week 4: Retention and referral system. Include daily specific tasks, scripts for outreach messages, objection handling responses, and a tracking spreadsheet template.'},
+  // PHOTOSHOP
+  {cat:'Photoshop',title:'Cinematic Portrait Retouch',text:'Professional cinematic portrait retouching prompt: smooth skin with frequency separation technique preserving natural pores and texture, enhance eye whites without losing natural color, add subtle iris detail and catch light, perfect lip symmetry and color depth, dodge and burn for dimensional face sculpting, warm golden hour color grade with split toning (warm shadows, cool highlights), cinematic vignette at 30% opacity, professional hair flyaway cleanup, shot on Canon 5D Mark IV 85mm f/1.4, Lightroom preset: "Golden Hour Film"'},
+  {cat:'Photoshop',title:'Product Commercial Shot',text:'Ultra-realistic product photography composite: [product name] floating at 30-degree angle on pure white studio background, 3-point professional lighting with key light at 45 degrees left, fill light at 0.5 ratio from right, rim light creating edge separation behind, specular highlights on all reflective surfaces, clean shadow beneath product at 40% opacity, photorealistic material rendering showing texture detail, 8K commercial photography quality, ready for advertising campaign, comparable to Apple or Samsung product photography'},
+  {cat:'Photoshop',title:'Dramatic Sky Replacement',text:'Professional sky replacement composite: original photograph with replaced dramatic stormy golden hour sky, volumetric god rays breaking through storm clouds from upper right, realistic color temperature matching between foreground and new sky (warm 5500K), edge refinement for trees and hair using Select and Mask, ground fog matching atmospheric depth, luminosity-based blending with sky layer, HDR local adjustment for foreground elements, award-winning landscape composite photography, National Geographic editorial quality'},
+  {cat:'Photoshop',title:'Double Exposure Portrait',text:'Fine art double exposure portrait: clean portrait silhouette of [subject description] composited with [forest/cityscape/ocean] landscape, perfect edge masking showing landscape texture within face and hair, monochrome base with selective color on chosen elements only, screen blending mode for landscape overlay at 70% opacity, soft gradient fade from portrait to landscape, subtle texture grain overlay, gallery-worthy fine art photography composite, published in Magnum or VII photo agency quality'},
+  {cat:'Photoshop',title:'Fantasy Levitation Scene',text:'Cinematic fantasy photo manipulation: [person] levitating 3 meters above [outdoor location], natural position (not stiff), perfect shadow cast below accounting for multiple light sources, fabric and hair movement consistent with upward float, color grade matching levitating subject to environment lighting, foreground elements for depth (branches, rocks), atmospheric mist in middle ground, ultra-detailed background, photorealistic composite, Brooke Shaden or Erik Johansson artistic style, viral-worthy surrealist photography'},
+  {cat:'Photoshop',title:'Neon Cyberpunk Portrait',text:'Cyberpunk neon portrait photography style: subject sharp with tack focus on eyes, neon pink (#FF0080) rim light from left, electric blue (#0080FF) rim light from right, wet urban street bokeh background with neon sign reflections, rain effects on lens and skin, holographic data overlay elements at 30% opacity, subtle glitch displacement at edges, skin with natural texture enhanced, cyberpunk UI elements floating around subject, Sony A7III 50mm f/1.2 aesthetic, Blade Runner 2049 cinematic color grade'},
+  {cat:'Photoshop',title:'Nigerian Cultural Art Fusion',text:'Vibrant Nigerian contemporary digital art: Adire/Ankara fabric pattern textures integrated seamlessly into [modern design element], bold geometric shapes inspired by Yoruba Aso-oke weaving, color palette of deep indigo, bright coral, gold, and earth tones, traditional Igbo ukara or nsibidi symbols as decorative elements, modern typography overlay, celebration of Nigerian cultural heritage meeting contemporary design, globally shareable aesthetic, Kehinde Wiley meets Afrofuturism style, museum-quality digital artwork'},
+  {cat:'Photoshop',title:'Food Photography Perfection',text:'Professional editorial food photography of [dish name]: overhead flat lay composition on [surface material], perfect food styling with intentional garnish placement, steam visualization for hot dishes (multiply layer technique), color-corrected to enhance natural food tones, warm fill light eliminating harsh shadows, selective focus on hero ingredient, complementary props suggesting the meal story without competing, depth created with varying heights, published in Bon Appétit or Kinfolk magazine quality, maximum appetite appeal'},
+  {cat:'Photoshop',title:'3D Chrome Text Effect',text:'Photorealistic 3D chrome text effect for "[text]": polished mirror chrome material with perfect environment reflections, subtle imperfections for realism (scratches, fingerprints at 10% opacity), studio lighting with softbox reflections visible in metal, dramatic perspective angle with vanishing point, reflective surface beneath with perfect reflection, professional photorealistic shadow with correct falloff, post-processing glow on chrome edges, advertising typography quality, Apple product launch event aesthetic'},
+  {cat:'Photoshop',title:'Magazine Cover Design',text:'Professional magazine cover for [magazine name] featuring [subject/model]: bold masthead in [brand typeface] at top, cover lines hierarchy (main story prominent, secondary stories smaller), barcode and issue details at bottom, editorial photography with subject looking directly at camera, dramatic crop showing personality, color scheme pulled from subject clothing, pull quote or coverline overlay that creates intrigue, newsstand-ready professional layout, comparable to Vogue, TIME, or Forbes magazine quality, print-ready at 300 DPI'},
+  {cat:'Photoshop',title:'Vintage Restoration Style',text:'Vintage photograph restoration aesthetic for new photo: simulate 1950s Kodachrome film look with characteristic color palette (slightly oversaturated reds, warm yellows, reduced blues), period-accurate tonal range with lifted blacks, authentic film grain at correct grain size for era, slight vignette as period lenses produced, natural color fade in highlights, optical lens softness in corners, age-related dust and scratches at subtle levels, timeless portrait quality suggesting a family heirloom photograph, Vivian Maier or Henri Cartier-Bresson era quality'},
+  {cat:'Photoshop',title:'Surrealist Dream Composite',text:'Award-winning surrealist photo composite: [physically impossible concept - e.g., giant whale swimming through city clouds / staircase leading into ocean / books growing from garden], photorealistic execution making the impossible look photographed, consistent lighting direction and color temperature across all composited elements, atmospheric depth with haze for scale, perfect shadow and reflection logic, hyper-detailed textures on every element, emotional narrative in the composition, René Magritte concept executed in photorealistic photography style, trending on 500px and ArtStation'},
+  {cat:'Photoshop',title:'E-commerce Product Bundle',text:'Professional e-commerce product bundle composite photography: [5 related products] arranged in dynamic flat lay composition, pure white background with zero-pixel shadows replaced by subtle cast shadow, individual product detail callout lines with product names, badge placement for bestseller or new arrival labels, high resolution 6000x4000px for zoom capability, each product color-corrected individually, depth of field suggesting real photography, Amazon main image guidelines compliant, optimized for conversion rate, comparable to top-performing Amazon listings'},
+  {cat:'Photoshop',title:'Sports Hero Poster',text:'Epic sports motivation poster for [athlete/team]: dynamic action pose with motion blur on background while subject completely sharp, stadium atmosphere with crowd bokeh, split-tone dramatic lighting (cool shadows, warm highlights), dramatic low angle perspective making subject appear larger than life, team colors in gradient overlay at 40%, bold typographic name treatment with drop shadow, sponsor logo placement areas, high contrast punch to image, Nike or Adidas campaign advertising quality, printable at 24x36 inches at 300 DPI'},
+  {cat:'Photoshop',title:'Book Cover Bestseller',text:'Bestselling book cover design for "[book title]" in [genre]: compelling visual metaphor that creates curiosity without revealing too much, author name treatment appropriate to their fame level, typography that reads clearly at Amazon thumbnail size (180x280px), back cover layout with synopsis, author bio, endorsement quotes, barcode placement, category and price area, spine design if applicable, color psychology appropriate to genre audience, comparable top 10 bestseller on Amazon in [genre] category'},
+  // ADS
+  {cat:'Ads',title:'Facebook Video Ad Script (30s)',text:'Write a high-converting 30-second Facebook video ad script for [product] targeting Nigerian [audience]. Include: second-by-second breakdown, attention hook for first 3 seconds (visual + audio), problem agitation (seconds 4-12), solution reveal (seconds 13-22), social proof (seconds 23-26), irresistible CTA (seconds 27-30). Add director notes for visuals, text overlays, and music mood for each section.'},
+  {cat:'Ads',title:'Google Search Ad Pack (10 Ads)',text:'Write 10 complete Google Search ads for [business] in Nigeria. For each ad: Headline 1 (30 chars max, keyword-focused), Headline 2 (30 chars, unique benefit), Headline 3 (30 chars, CTA or trust signal), Description 1 (90 chars, expand on benefit), Description 2 (90 chars, social proof + CTA), plus Display URL path suggestions. Include keyword intent analysis for each ad and when to use which variation.'},
+  {cat:'Ads',title:'Instagram Story Ad (3-Frame)',text:'Create a complete 3-frame Instagram Story ad concept for [product/service] targeting Nigerian [audience]. Frame 1 (0-3s): Scroll-stopping visual hook with minimal text. Frame 2 (4-8s): Problem or desire elaboration with social proof. Frame 3 (9-15s): Solution reveal with clear CTA and swipe-up prompt. For each frame: visual direction, copy text, font style, color palette, and animation notes. Include A/B test variation for Frame 1.'},
+  {cat:'Ads',title:'TikTok Ad Concept Brief',text:'Write a complete TikTok ad creative brief for [product] targeting Nigerian Gen Z and millennials (18-35). Include: concept overview and why it will go viral, hook idea (first 1-3 seconds), trending audio/sound suggestion, story arc with timestamps, natural product integration moment, hashtag strategy (5 hashtags), creator casting notes (type of person, energy, style), and one alternative concept variation. Make it feel like organic content, not a traditional ad.'},
+  {cat:'Ads',title:'Complete Ad Campaign (All Channels)',text:'Design a complete multi-channel ad campaign for [product launch] in Nigeria with a ₦200,000 total budget. Include: budget allocation across channels (Facebook, Instagram, WhatsApp, TikTok, Google), creative brief for each channel, messaging hierarchy (awareness → consideration → conversion), audience targeting parameters for each channel, campaign timeline and phases, KPI targets for each channel, and optimization triggers (when to scale what\'s working, when to kill what\'s not).'},
+  {cat:'Ads',title:'Retargeting Ad Sequence',text:'Write 5 retargeting ad variations for website visitors who didn\'t purchase [product]. Target them based on: Variation 1 (viewed product page) - product reminder. Variation 2 (added to cart) - abandoned cart urgency. Variation 3 (visited 3+ times) - social proof focus. Variation 4 (7-day non-purchaser) - discount offer. Variation 5 (14-day non-purchaser) - objection busting. Each should feel personalized and non-creepy. Include copy and visual direction for each.'},
+  {cat:'Ads',title:'YouTube Pre-Roll Ad (15s)',text:'Write a 15-second unskippable YouTube ad script for [brand] targeting Nigerians. Since the skip button appears at second 5, the hook must be absolutely irresistible — something viewers actively want to finish watching. Include: second-by-second visual and audio direction, on-screen text timing, brand reveal moment, and a CTA that works even for people who skip at second 5. Write 3 variations to A/B test different hooks.'},
+  {cat:'Ads',title:'WhatsApp Status Ad Campaign',text:'Create a 7-day WhatsApp Status ad campaign for [product] targeting Nigerian WhatsApp users. For each day: image/video concept description, caption text (under 700 characters), swipe-up or reply CTA, time to post for maximum views. Include how to use WhatsApp Business features for automation, how to track saves and reactions, and how to convert viewers who react to status into paying customers.'},
+  {cat:'Ads',title:'Flash Sale Campaign (24-Hour)',text:'Write a complete 24-hour flash sale ad campaign for [business]. Midnight launch: announcement post. 7 AM: Morning crowd reminder. 12 PM: Midday scarcity update (X items/spots left). 4 PM: "Only 8 hours left" push. 8 PM: Final evening countdown. 11 PM: Last 60 minutes panic push. 11:59 PM: Last chance. Include: social media captions, WhatsApp broadcasts, and SMS message for each time slot. Every message must increase urgency progressively.'},
+  {cat:'Ads',title:'Native Ad Headline Pack (20)',text:'Write 20 native advertising headlines for [product/article] targeting Nigerian online readers on Taboola, Outbrain, or Facebook. Use variety: 5 curiosity gaps ("What Happens When..."), 5 number-based ("The 7 Nigerians Who..."), 5 local reference headlines (mention states, situations, or cultural moments), 5 emotional triggers (fear, aspiration, relief, envy). Rate each headline 1-10 for predicted click-through rate and explain your reasoning.'},
+  {cat:'Ads',title:'Podcast Sponsorship Script (60s)',text:'Write a 60-second authentic podcast sponsorship script for [brand] to be read by a Nigerian podcast host. The script should: open naturally transitioning from regular content, describe a personal experience with the product (customize based on host\'s known interests), include 3 specific benefits relevant to the show\'s audience, present a listener-exclusive offer with memorable promo code, and close with clear URL (use simple one). Write in natural conversational Nigerian English that won\'t sound scripted.'},
+  // CODING
+  {cat:'Coding',title:'Full Stack Web App Builder',text:'Build a complete full-stack web application for [app description] using Next.js 14, TypeScript, Tailwind CSS, and Supabase. Include: complete database schema with RLS policies, authenticated API routes, responsive React frontend with dark mode, form validation with Zod, error handling and loading states, real-time features where appropriate, and Vercel deployment configuration. Follow production-quality best practices throughout.'},
+  {cat:'Coding',title:'Nigerian Payment Integration',text:'Implement complete payment integration for a Nigerian e-commerce web app supporting Paystack and Flutterwave. Include: checkout component with card, bank transfer, and USSD options, webhook handlers for payment verification, idempotency for duplicate prevention, payment receipt generation, failed payment retry logic, refund processing endpoint, test mode vs live mode configuration, and complete TypeScript types for all payment objects.'},
+  {cat:'Coding',title:'React Component Library',text:'Build a reusable React component library for a Nigerian fintech application. Include: design token system (colors, spacing, typography), Button component with 5 variants and loading state, Input with Nigerian-specific validation (phone numbers starting with 0 or +234, BVN, NIN), DataTable with sorting/filtering/pagination, Modal system with animation, Toast notification system, and complete Storybook documentation with usage examples.'},
+  {cat:'Coding',title:'WhatsApp Chatbot (Node.js)',text:'Build a complete WhatsApp Business API chatbot for a Nigerian [business type] using Node.js and Express. Include: webhook setup for message receiving, message type handlers (text, image, button, list), conversation state management, automated FAQ responses, product catalog integration, order taking flow, Paystack payment link generation, human agent escalation trigger, and session timeout handling with re-engagement message.'},
+  {cat:'Coding',title:'AI-Powered Web App',text:'Build a web application that uses the OpenAI API to [specific AI feature description]. Include: secure API key management with environment variables, streaming response handling for real-time output, conversation history management for multi-turn chat, prompt template system for consistent outputs, rate limiting and error handling, usage tracking and cost monitoring, beautiful UI with Tailwind CSS, and mobile-responsive design.'},
+  {cat:'Coding',title:'Chrome Extension',text:'Build a production-ready Chrome extension for [functionality description]. Include: manifest.json v3 configuration, popup UI built with vanilla JS or React, content script for page manipulation, background service worker for persistent tasks, Chrome Storage API for settings persistence, context menu integration, keyboard shortcut support, options page for configuration, and complete guide for Chrome Web Store submission.'},
+  {cat:'Coding',title:'E-commerce Backend API',text:'Build a complete e-commerce backend REST API for a Nigerian marketplace using Node.js, Express, and MongoDB. Include: product catalog with variants and inventory, user authentication with JWT and refresh tokens, order management system with status tracking, Nigerian delivery zones and pricing calculator, Paystack payment processing, seller dashboard endpoints, admin analytics endpoints, and comprehensive Postman collection documentation.'},
+  {cat:'Coding',title:'Mobile App React Native',text:'Build a React Native mobile app for [app concept] optimized for Nigerian users. Include: navigation setup with React Navigation v6, offline-first architecture using AsyncStorage and sync when online, data compression for slow/limited connections, push notifications with Expo, biometric authentication, Nigerian phone number input with country code, Naira currency formatting throughout, and complete build configuration for Play Store submission.'},
+  {cat:'Coding',title:'Data Dashboard',text:'Build a React analytics dashboard for a Nigerian [business type] using Recharts. Include: KPI summary cards with trend indicators, line chart for revenue over time in Naira, bar chart for product/service comparison, pie chart for customer segments, date range filter with presets (7 days, 30 days, 90 days, custom), data export to Excel and PDF, dark/light mode toggle, mobile responsive layout, and real-time data refresh every 60 seconds.'},
+  {cat:'Coding',title:'Social Media Auto-Scheduler',text:'Build a social media content scheduling tool for Nigerian creators. Include: content calendar interface, post creation form with text, image upload, and scheduling time, Facebook and Instagram API integration for direct publishing, TikTok video upload support, best time to post recommendation engine based on past performance, analytics tracking for reach and engagement, team collaboration with role-based access, and monthly performance report generation.'},
+  // EDUCATION
+  {cat:'Education',title:'JAMB/WAEC Study Guide',text:'Create a comprehensive study guide for [specific subject] for Nigerian students preparing for [JAMB/WAEC/NECO/POST-UTME]. Include: complete syllabus breakdown with weighting, topic-by-topic summary notes in simple Nigerian student language, mnemonic devices for memorization (use culturally relevant Nigerian references), the top 20 most likely exam questions based on past papers, practice questions with fully explained answers, and an 8-week study schedule.'},
+  {cat:'Education',title:'Course Curriculum Designer',text:'Design a complete 12-week online course curriculum on [topic] for Nigerian learners. For each week include: clear learning objectives (what students can do after), 3-5 lesson topics with time estimates, practical exercise using Nigerian business/life context, case study from Nigerian or African examples, week assignment with clear rubric, discussion question for community engagement, and recommended free resources. Include course welcome module and graduation criteria.'},
+  {cat:'Education',title:'Financial Literacy for Youth',text:'Create a financial literacy module for Nigerian young adults aged 18-30. Cover: understanding the Nigerian banking system (commercial vs microfinance), building an emergency fund on NYSC or entry-level salary, investment options available in Nigeria (stock exchange, mutual funds, real estate, agriculture), identifying and avoiding common Nigerian money scams (Ponzi schemes, fake investments), building credit responsibly, and a 12-month saving challenge template customized for Naira amounts.'},
+  {cat:'Education',title:'Corporate Training Program',text:'Design a 3-month onboarding and training program for new employees at a Nigerian [company type]. Month 1: Company culture, systems, and role foundations. Month 2: Core skill development and mentorship pairing. Month 3: Independent project and performance evaluation. Include: daily schedule for week 1, weekly learning objectives for remaining months, assessment criteria, buddy system framework, 30/60/90-day milestone checkpoints, and graduation criteria for full independence.'},
+  {cat:'Education',title:'Digital Literacy for Adults',text:'Create an 8-week digital literacy curriculum for Nigerian adults with limited technology experience. Week 1: Smartphone basics and settings. Week 2: Internet safety and common Nigerian scams to avoid. Week 3: WhatsApp professional use. Week 4: Basic social media for business. Week 5: Online banking safety (GTB, Access, UBA, Opay). Week 6: Google services (Gmail, Maps, Drive). Week 7: AI tools introduction. Week 8: Putting it all together. Each week: 2-hour class plan with exercises.'},
+  {cat:'Education',title:'Scholarship Application Essay',text:'Write a compelling scholarship application essay for [scholarship name] from the perspective of a talented, hardworking but financially challenged Nigerian student from [state/background]. Structure: Powerful opening that doesn\'t start with "I", personal background and family story with specific details, academic achievements and extracurricular impact, community contribution and leadership evidence, clear career vision and how it serves Nigeria, and how this scholarship specifically enables that vision. 650-750 words. Nigerian authenticity required.'},
+  // PRODUCTIVITY
+  {cat:'Productivity',title:'Daily AI Workflow System',text:'Design a complete daily AI-powered work system for a Nigerian content creator posting daily across Facebook, TikTok, and Instagram. Include: morning AI briefing routine (15 minutes), AI content ideation session (30 minutes), AI-assisted content creation workflow for each platform (90 minutes total), scheduling and automation tools setup, evening engagement and analytics review (20 minutes), and a weekly content batching day. Address Nigerian realities: power cuts, data conservation, and phone-first creation.'},
+  {cat:'Productivity',title:'Content Repurposing Engine',text:'Build a complete content repurposing system that turns one long-form video into 15+ pieces of content. Starting asset: 1 YouTube video. Transform into: full transcript → blog post → email newsletter → 10 tweets/X posts → 5 Instagram captions → LinkedIn article → Facebook post → 3 YouTube Shorts → 2 TikToks → podcast episode → infographic outline → 5 quote cards → WhatsApp broadcast → Pinterest pins. Provide the specific AI prompt for each transformation step.'},
+  {cat:'Productivity',title:'Goal Achievement Framework',text:'Create a 90-day AI-assisted goal achievement system for Nigerian entrepreneurs. Include: annual vision clarification exercise with AI prompts, quarterly goal selection criteria, monthly milestone breakdown methodology, weekly priority-setting ritual (Sunday planning session), daily top-3 task selection algorithm, AI accountability check-in prompts (morning and evening), obstacle anticipation exercise, progress tracking dashboard template, and a monthly retrospective review process.'},
+  {cat:'Productivity',title:'Email Zero-Inbox System',text:'Design a zero-inbox email management system for a busy Nigerian entrepreneur receiving 50+ emails daily. Include: AI filtering rules to categorize automatically, response templates for the 10 most common email types, the 4D decision system (Delete, Defer, Delegate, Do), unsubscribe strategy to cut 80% of newsletters, folder structure for what remains, 30-minute daily email processing routine, AI-drafted response prompts for complex emails, and weekly cleanup ritual. Cover both Gmail and corporate email.'},
+  {cat:'Productivity',title:'Personal Finance AI System',text:'Build a complete personal finance management system for a Nigerian professional using Google Sheets and AI. Include: monthly budget template with Nigerian expense categories (generator fuel, data plans, ajo contributions, etc.), income and expense tracker with automatic categorization, debt payoff calculator using avalanche and snowball methods, savings goals tracker with visual progress, investment portfolio tracker (stocks, mutual funds), monthly net worth calculator, AI prompt for monthly financial review conversation, and yearly tax preparation checklist.'}
+];
+
+// REST OF DATA
+const MONEY=[
+  {icon:'✍️',title:'AI Copywriting',desc:'Write compelling copy for Nigerian businesses using ChatGPT and Claude at scale.',amt:'₦50K-200K',per:'/month',steps:['Master copywriting prompt engineering','Build portfolio with 5 diverse samples','Pitch to 10 Lagos businesses this week','Scale with retainer client model']},
+  {icon:'🎨',title:'AI Design Service',desc:'Create logos, flyers, and social media visuals using Canva AI, Midjourney, and Ideogram.',amt:'₦30K-150K',per:'/month',steps:['Master Canva AI + Midjourney workflow','Build impressive portfolio in 2 weeks','Join Nigerian business Facebook groups','Offer starter design packages']},
+  {icon:'🎬',title:'AI Video Creation',desc:'Make Reels and videos for brands using CapCut AI, Runway, and InVideo.',amt:'₦40K-180K',per:'/month',steps:['Learn CapCut AI full feature set','Create 10 impressive sample videos','Contact 20 Nigerian businesses','Build monthly video packages']},
+  {icon:'🤖',title:'Chatbot Setup',desc:'Build AI chatbots for Nigerian SMEs using ManyChat and Tidio.',amt:'₦100K+',per:'/setup',steps:['Learn ManyChat and Tidio thoroughly','Build 3 impressive demo chatbots','Target restaurants and retail shops','Charge ₦100K per chatbot setup']},
+  {icon:'📚',title:'Prompt Selling',desc:'Create and sell premium prompt packs on Selar and Gumroad.',amt:'₦20K-80K',per:'/month',steps:['Build 50 deeply tested prompts','Package by industry and use case','List on Selar.co immediately','Market in Nigerian entrepreneur groups']},
+  {icon:'🎓',title:'AI Consulting',desc:'Train Nigerian businesses to integrate AI into their daily workflows.',amt:'₦150K+',per:'/client',steps:['Document your own AI systems first','Create training material and slides','Pitch to 5 businesses weekly','Deliver 2-day intensive workshops']},
+  {icon:'🖥️',title:'No-Code App Building',desc:'Build web apps for clients using Bolt.new, Lovable, and other AI tools.',amt:'₦80K-300K',per:'/project',steps:['Master Bolt.new and Lovable platforms','Build 5 impressive demo projects','Create LinkedIn and portfolio presence','Charge premium Nigerian market rates']},
+  {icon:'📱',title:'Social Media Agency',desc:'Manage social media for Nigerian brands using AI for content creation at scale.',amt:'₦80K-500K',per:'/month',steps:['Build your AI content creation stack','Get first client free for testimonial','Document results and ROI clearly','Scale to 5-10 retainer clients']},
+  {icon:'🎙️',title:'Podcast Production',desc:'Produce, edit, and grow podcasts using Descript and ElevenLabs AI tools.',amt:'₦50K-200K',per:'/month',steps:['Master Descript and Adobe Podcast AI','Create your own podcast as portfolio','Document your efficient process','Package as monthly production retainer']},
+  {icon:'🌐',title:'Faceless YouTube Channel',desc:'Create AI-generated faceless YouTube channels using voiceover and stock footage.',amt:'₦30K-500K+',per:'/month',steps:['Choose a profitable search-driven niche','Create 30 videos with AI tools','Enable and grow to AdSense threshold','Scale by launching multiple channels']},
+  {icon:'📊',title:'AI Business Analysis',desc:'Provide data analysis and business intelligence using AI for Nigerian companies.',amt:'₦100K-400K',per:'/project',steps:['Learn AI data analysis tools','Build sample reports for target industries','Partner with accounting and consulting firms','Position as Nigerian business intelligence expert']},
+  {icon:'📝',title:'AI Content Writing',desc:'Run a content writing agency producing blogs, newsletters, and articles with AI.',amt:'₦100K-800K',per:'/month',steps:['Master 3 content AI tools deeply','Land first 3 clients with free samples','Build systematic AI production process','Hire and train AI-assisted writers']}
+];
+
+const PRODUCTS=[
+  {title:'Affiliate Starter Toolkit',desc:'Ready-to-use templates, email scripts, and proven traffic tips to launch your affiliate business fast.',price:'Special Price',color:'#D4AF37',link:'https://wa.link/9073zd',tag:'⭐ Best Seller',feats:['Ready-to-use email scripts','Traffic generation tips','Nigerian market strategies','WhatsApp support included']},
+  {title:'Smart Side Hustles eBook',desc:'Practical guide to online income streams that actually work in Nigeria. Start with under ₦5,000.',price:'Available Now',color:'#4ade80',link:'https://wa.link/9073zd',tag:'🔥 Popular',feats:['Real Nigerian income ideas','Start with under ₦5,000','Community access included','Works without laptop']},
+  {title:'Facebook Timeline Domination',desc:'Turn your Facebook timeline into a sales machine — 100% organic, zero ads needed.',price:'$20',oldPrice:'$60',color:'#3b82f6',link:'https://wa.link/9073zd',tag:'💥 Hot Deal',feats:['Organic lead generation system','Content strategy framework','Funnel building without ads','Authority positioning guide']},
+  {title:'Android Ethical Hacking',desc:'Learn ethical hacking on Android. For educational use only. Unlock access below.',price:'Free Unlock',color:'#00f2ea',link:'https://link-locker.com/p/link-unlocker.html#eyJ2IjoiMC4wLjEiLCJlIjoiM0luWEpnWWRWWjBTVktrcmtxRTBXZ1pmM0hQNEtvTGlzZno0NFlpV0xlWDZ5dUQvT0hRUnZCbWdtZXRmMXNsM2FOeHA4NFdQOS9aVWl6TjA0dVhod0RXYmc5bFBJb3dzbXlmUmJYeWpYa01DTm9PTFg0V1JVQT09IiwiaCI6Ik9OSU1JWEFORFJPSURIQUNLSU5HQ09VUlNFIiwiaSI6IlhJeSthMGRlQTFjaXlVVnYifQ==',tag:'🔓 Educational',feats:['Android security fundamentals','Ethical hacking tools overview','Educational purposes only','Beginner to intermediate level']}
+];
+
+const UPATHS=[
+  {level:'Beginner',title:'AI Foundations',desc:'Start from zero. Understand AI and build your free toolkit.',mods:['What is AI and why it matters now','Overview of the top 40 AI tools','Setting up your free AI toolkit today','First prompt engineering steps','Creating your first AI content'],xp:500,done:[true,true,false,false,false]},
+  {level:'Intermediate',title:'Content & Prompts',desc:'Master content creation and advanced prompting techniques.',mods:['Advanced ChatGPT prompting mastery','Midjourney image creation mastery','CapCut AI for Reels without camera','Prompt engineering certification path','Building a consistent content system'],xp:1200,done:[true,false,false,false,false]},
+  {level:'Advanced',title:'Income Generation',desc:'Turn your AI skills into a real, consistent income stream.',mods:['Defining your AI service offer clearly','Getting your first clients in Nigeria','Pricing and packaging AI services','Scaling operations with automation','Creating your first digital product'],xp:2500,done:[false,false,false,false,false]},
+  {level:'Master',title:'AI Business Builder',desc:'Build a full-scale AI-powered business empire.',mods:['Building AI SaaS products for clients','Affiliate marketing at scale with AI','Creating and selling your own courses','Brand building as an AI authority','Scaling to multiple income streams'],xp:5000,done:[false,false,false,false,false]}
+];
+
+const BADGES=[
+  {icon:'🚀',name:'First Launch',earned:true},{icon:'🧠',name:'AI Curious',earned:true},
+  {icon:'✍️',name:'Prompt Pro',earned:false},{icon:'💰',name:'First ₦10K',earned:false},
+  {icon:'🎨',name:'Visual Creator',earned:false},{icon:'🎬',name:'Video Maker',earned:false},
+  {icon:'🏆',name:'Top Creator',earned:false},{icon:'👑',name:'AI Master',earned:false},
+  {icon:'⚡',name:'Speed Learner',earned:false},{icon:'🌍',name:'Global Nigerian',earned:false}
+];
+
+const STORIES=[
+  {av:'😊',txt:'"Affiliate marketing finally clicked for me after Onimix. Real Nigerian examples, zero fluff! Got 2 leads my first day applying what I learned."',auth:'Amaka T., Enugu'},
+  {av:'💪',txt:'"I started a mini importation hustle using AI market research and sold out my first batch in 2 weeks. Nigeria hardship no go kill us!"',auth:'Abdul K., Kaduna'},
+  {av:'🔥',txt:'"The prompt templates are worth 10x the price. Used the email script and got replies from 3 prospects immediately. Life-changing stuff!"',auth:'Zainab B., Kano'},
+  {av:'⭐',txt:'"Made my first ₦15,000 online in two weeks using the side hustle guide. Started with less than ₦5k capital. God is good!"',auth:'Chinedu N., Enugu'},
+  {av:'🎯',txt:'"ChatGPT prompt tips from Onimix helped me write client proposals that win. I doubled my freelance income in literally one month."',auth:'David E., Abuja'},
+  {av:'🌟',txt:'"The no-camera Reels strategy is REAL. Posted 15 AI-made Reels and gained 500+ followers in 2 weeks. Facebook is finally working for me!"',auth:'Blessing T., Ilorin'}
+];
+
+const VAULT=[
+  {icon:'📋',title:'50 Nigerian AI Prompts Pack',desc:'Tested prompts for marketing, business, and content creation with Nigerian context.',act:'Download Free'},
+  {icon:'📊',title:'AI Income Roadmap PDF',desc:'Step-by-step guide to earning ₦100K/month with AI tools in Nigeria.',act:'Get Guide'},
+  {icon:'🎯',title:'Affiliate Programs Cheat Sheet',desc:'Quick reference for Nigeria top affiliate programs with commission rates.',act:'Download'},
+  {icon:'⚡',title:'ChatGPT Mastery Guide',desc:'Complete beginner-to-advanced guide with Nigerian use cases throughout.',act:'Access Free'},
+  {icon:'🎨',title:'Canva AI Template Pack',desc:'20 ready-to-use templates for Nigerian social media content creators.',act:'Get Templates'},
+  {icon:'📱',title:'No-Camera Reels Workflow',desc:'Complete workflow for creating Reels using stock footage and CapCut AI.',act:'Download'},
+  {icon:'💼',title:'AI Freelancing Starter Kit',desc:'Everything to start your AI service business: proposals, pricing, scripts.',act:'Get Kit'},
+  {icon:'🌍',title:'40 AI Tools Bible',desc:'Complete guide to all 40 AI tools with Nigerian market applications.',act:'Read Now'},
+  {icon:'💰',title:'Monetization Playbook',desc:'12 proven ways Nigerians are making real money with AI right now.',act:'Get Playbook'},
+  {icon:'🎓',title:'University Learning Guide',desc:'Complete path from AI beginner to consistent income earner.',act:'Access Free'},
+  {icon:'📈',title:'Facebook Growth Checklist',desc:'90-day page growth checklist used to grow from 1K followers.',act:'Download'},
+  {icon:'🔧',title:'Prompt Builder Tool',desc:'Use the interactive Prompt Builder in the Prompts section above.',act:'Use Free'}
+];
+
+const TOOL_CATS=['All','Writing','Images','Video','Audio','Research','Design','Coding','Productivity','Marketing','No-Code'];
+const PROMPT_CATS=['All','Marketing','Business','Photoshop','Ads','Coding','Education','Productivity'];
+
+// ══════════════════════════════════════════════
+// RENDER FUNCTIONS
+// ══════════════════════════════════════════════
+function renderToolCats(){
+  document.getElementById('tcats').innerHTML=TOOL_CATS.map(c=>`<button class="tcb ${c==='All'?'active':''}" onclick="filterTools('${c}',this)">${c}</button>`).join('');
+}
+
+let currentToolCat='All';
+function filterTools(cat,btn){
+  currentToolCat=cat||currentToolCat;
+  if(btn){document.querySelectorAll('.tcb').forEach(b=>b.classList.remove('active'));btn.classList.add('active');}
+  const q=(document.getElementById('tsearch')?.value||'').toLowerCase();
+  const filtered=TOOLS.filter(t=>(currentToolCat==='All'||t.cat===currentToolCat)&&(t.name.toLowerCase().includes(q)||t.desc.toLowerCase().includes(q)||t.tags.some(tg=>tg.toLowerCase().includes(q))));
+  document.getElementById('tgrid').innerHTML=filtered.map(t=>`
+    <div class="pc reveal" style="--pcb:${t.color};--pcbr:${t.bc};--pcc:${t.tc};" onclick="openTool('${t.id}')">
+      <div class="pc-cb">${t.cat}</div>
+      <span class="pc-icon">${t.icon}</span>
+      <div class="pc-name">${t.name}</div>
+      <div class="pc-desc">${t.desc}</div>
+      <div class="pc-tags">${t.tags.map(tg=>`<span class="tag" style="background:${t.color};color:${t.tc};border:1px solid ${t.bc};">${tg}</span>`).join('')}</div>
+      <div class="pc-action"><span>Explore ${t.name} →</span><span style="font-size:18px;">${t.icon}</span></div>
+    </div>
+  `).join('');
+  observeReveal();
+}
+
+function openTool(id){
+  const t=TOOLS.find(x=>x.id===id);if(!t)return;
+  document.getElementById('micon').textContent=t.icon;
+  document.getElementById('mtitle').textContent=t.name;
+  document.getElementById('mtitle').style.color=t.tc;
+  document.getElementById('mtags').innerHTML=t.tags.map(tg=>`<span class="tag" style="color:${t.tc};border:1px solid ${t.bc};">${tg}</span>`).join('');
+  document.getElementById('mt0').innerHTML=`<p style="font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:14px;">${t.overview}</p><div style="font-size:13px;font-weight:700;color:var(--white);margin-bottom:8px;">Best Applications:</div><ul class="mlist">${t.tags.map(tg=>`<li>${tg} related projects and tasks</li>`).join('')}</ul>`;
+  document.getElementById('mt1').innerHTML=`<div style="font-size:13px;font-weight:700;color:var(--white);margin-bottom:10px;">📚 Tutorial Learning Series</div><ul class="mlist">${t.tutorials.map(tu=>`<li>${tu}</li>`).join('')}</ul>`;
+  document.getElementById('mt2').innerHTML=`<div style="font-size:13px;font-weight:700;color:var(--white);margin-bottom:10px;">💰 Ways to Earn with ${t.name}</div><ul class="mlist">${t.monetize.map(m=>`<li>${m}</li>`).join('')}</ul>`;
+  document.getElementById('mt3').innerHTML=t.path.map((s,i)=>`<div class="pstep"><div class="psn">0${i+1}</div><div class="pst"><div class="psl">${i===0?'🚀 Start Here':i===t.path.length-1?'🎯 End Goal':'⬆️ Level Up'}</div>${s}</div></div>`).join('');
+  swTab(0);
+  document.getElementById('pmodal').classList.add('show');
+  document.body.style.overflow='hidden';
+}
+
+function swTab(i){
+  document.querySelectorAll('.mtab').forEach((t,idx)=>t.classList.toggle('active',idx===i));
+  document.querySelectorAll('.mcontent').forEach((c,idx)=>c.classList.toggle('active',idx===i));
+}
+
+function closePM(e){
+  if(!e||e.target===document.getElementById('pmodal')){
+    document.getElementById('pmodal').classList.remove('show');
+    document.body.style.overflow='';
+  }
+}
+
+function renderPCats(){
+  document.getElementById('pfWrap').innerHTML=PROMPT_CATS.map(c=>`<button class="pf ${c==='All'?'active':''}" onclick="filterPrompts('${c}',this)">${c} <span style="font-size:9px;opacity:0.45;">(${c==='All'?PROMPTS.length:PROMPTS.filter(p=>p.cat===c).length})</span></button>`).join('');
+}
+
+let currentPromptCat='All';
+function filterPrompts(cat,btn){
+  currentPromptCat=cat||currentPromptCat;
+  if(btn){document.querySelectorAll('.pf').forEach(b=>b.classList.remove('active'));btn.classList.add('active');}
+  const q=(document.getElementById('psearch')?.value||'').toLowerCase();
+  const filtered=PROMPTS.filter(p=>(currentPromptCat==='All'||p.cat===currentPromptCat)&&(p.title.toLowerCase().includes(q)||p.text.toLowerCase().includes(q)||p.cat.toLowerCase().includes(q)));
+  document.getElementById('pg').innerHTML=filtered.map((p,i)=>`
+    <div class="pcard reveal">
+      <div class="pcat">${p.cat}</div>
+      <div class="ptitle">${p.title}</div>
+      <div class="ptext" id="pt${i}">${p.text}</div>
+      <button class="pexp" onclick="document.getElementById('pt${i}').classList.toggle('exp')">···</button>
+      <button class="pcopy" id="pb${i}" onclick="copyP(${i})">📋 Copy Prompt</button>
+    </div>
+  `).join('');
+  observeReveal();
+}
+
+function copyP(i){
+  const texts=document.querySelectorAll('.ptext');
+  navigator.clipboard.writeText(texts[i]?.textContent||'').then(()=>{
+    const btn=document.getElementById('pb'+i);
+    if(btn){btn.textContent='✅ Copied!';btn.classList.add('copied');setTimeout(()=>{btn.textContent='📋 Copy Prompt';btn.classList.remove('copied');},2000);}
+  });
+}
+
+function buildPrompt(){
+  const role=document.getElementById('pbRole').value;
+  const task=document.getElementById('pbTask').value||'write content';
+  const audience=document.getElementById('pbAudience').value||'Nigerian audience';
+  const format=document.getElementById('pbFormat').value;
+  document.getElementById('pbOut').textContent=`You are ${role}. Your task is to ${task} specifically for ${audience}. Provide your response as ${format}. Make the output practical, actionable, and directly applicable to the Nigerian market context. Use clear, engaging language, include specific local examples where relevant, and ensure every piece of advice can be implemented immediately. Go deep, be comprehensive, and deliver exceptional value.`;
+}
+
+function copyBuilt(){
+  const t=document.getElementById('pbOut').textContent;
+  if(t&&!t.includes('appear here')){navigator.clipboard.writeText(t).then(()=>{const b=event.target;b.textContent='✅ Copied!';setTimeout(()=>b.textContent='📋 Copy',2000);});}
+}
+
+function renderMoney(){
+  document.getElementById('moneyGrid').innerHTML=MONEY.map(m=>`
+    <div class="mc reveal">
+      <div class="micon">${m.icon}</div>
+      <div class="mtitle">${m.title}</div>
+      <div class="mdesc">${m.desc}</div>
+      <div><span class="mamt">${m.amt}</span><span class="mper">${m.per}</span></div>
+      <ul class="msteps">${m.steps.map(s=>`<li>${s}</li>`).join('')}</ul>
+    </div>
+  `).join('');
+  document.getElementById('prodsGrid').innerHTML=PRODUCTS.map(p=>`
+    <div class="prodcard reveal" style="--pc3:${p.color};">
+      <div class="prod-tag"><span class="tag" style="color:${p.color};background:rgba(0,0,0,0.4);border:1px solid ${p.color}40;">${p.tag}</span></div>
+      <div class="prod-title">${p.title}</div>
+      <div class="prod-desc">${p.desc}</div>
+      <div style="display:flex;align-items:baseline;gap:6px;margin-bottom:12px;"><span class="prod-price" style="color:${p.color};">${p.price}</span>${p.oldPrice?`<span class="prod-old">${p.oldPrice}</span>`:''}</div>
+      <ul class="msteps">${p.feats.map(f=>`<li style="font-size:11px;">${f}</li>`).join('')}</ul>
+      <div style="margin-top:14px;"><a href="${p.link}" target="_blank" class="btn btn-g" style="background:linear-gradient(135deg,${p.color},${p.color}88);color:#000;width:100%;justify-content:center;display:flex;">Get Now →</a></div>
+    </div>
+  `).join('');
+}
+
+function renderUniversity(){
+  document.getElementById('uniPaths').innerHTML=UPATHS.map(p=>`
+    <div class="upath reveal">
+      <div class="uplvl">${p.level}</div>
+      <div class="uptitle">${p.title}</div>
+      <p style="font-size:12px;color:var(--muted);margin-bottom:9px;">${p.desc}</p>
+      <div class="xpbar-w"><div class="xpbar" style="width:${p.done.filter(Boolean).length/p.mods.length*100}%"></div></div>
+      <div style="font-size:10px;color:var(--muted);font-family:'JetBrains Mono',monospace;margin-bottom:9px;">${p.done.filter(Boolean).length}/${p.mods.length} modules · ${p.xp} XP</div>
+      <ul class="umods">${p.mods.map((m,i)=>`<li><div class="mchk ${p.done[i]?'done':''}">${p.done[i]?'✓':''}</div>${m}</li>`).join('')}</ul>
+      <div style="margin-top:13px;"><a href="https://wa.link/mjp0j3" target="_blank" class="btn btn-p" style="font-size:11px;padding:7px 15px;">Start Path →</a></div>
+    </div>
+  `).join('');
+  document.getElementById('badgesRow').innerHTML=BADGES.map(b=>`<div class="badge ${b.earned?'earned':''}"><div class="badge-icon">${b.icon}</div><div class="badge-name">${b.name}</div></div>`).join('');
+}
+
+function renderCommunity(){
+  document.getElementById('stories').innerHTML=STORIES.map(s=>`
+    <div class="scard reveal"><div class="sav">${s.av}</div><div><div class="stxt">${s.txt}</div><div class="sauth">— ${s.auth}</div></div></div>
+  `).join('');
+}
+
+function renderVault(){
+  document.getElementById('vaultGrid').innerHTML=VAULT.map(v=>`
+    <div class="vcard reveal">
+      <div class="vicon">${v.icon}</div>
+      <div class="vtitle">${v.title}</div>
+      <div class="vdesc">${v.desc}</div>
+      <a href="https://wa.link/9073zd" target="_blank" class="vact">${v.act} →</a>
+    </div>
+  `).join('');
+}
+
+function subscribe(){
+  const e=document.getElementById('nlEmail');
+  if(e.value&&e.value.includes('@')){alert('🎉 Subscribed! Watch out for AI tips and income strategies.');e.value='';}
+  else alert('Please enter a valid email address.');
+}
+
+// ══════════════════════════════════════════════
+// SCROLL & ANIMATION ENGINE
+// ══════════════════════════════════════════════
+function observeReveal(){
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        e.target.classList.add('on');
+        e.target.querySelectorAll('.reveal,.eyebrow,.stitle,.ssub').forEach((c,i)=>{c.style.transitionDelay=`${i*0.05}s`;c.classList.add('on');});
+      }
+    });
+  },{threshold:0.07});
+  document.querySelectorAll('.reveal,.reveal-l,.reveal-r,.eyebrow,.stitle,.ssub').forEach(el=>obs.observe(el));
+}
+
+function animateCounters(){
+  document.querySelectorAll('[data-count]').forEach(el=>{
+    const target=parseInt(el.getAttribute('data-count'));
+    let c=0;const step=Math.max(target/80,1);
+    const t=setInterval(()=>{c+=step;if(c>=target){c=target;clearInterval(t);}el.textContent=Math.floor(c)+(target>=7?'+':'');},18);
+  });
+}
+
+// ══ SCROLL COLOR THEME ENGINE ══
+const SECTION_THEMES={
+  hero:      {accent:'#0099cc',bg:'#e8f6fc',border:'rgba(0,153,204,0.15)',cardBorder:'rgba(0,153,204,0.12)',pbar:'#0099cc,#7c3aed',glow:'rgba(0,153,204,0.15)'},
+  about:     {accent:'#2563eb',bg:'#eff6ff',border:'rgba(37,99,235,0.15)',cardBorder:'rgba(37,99,235,0.12)',pbar:'#2563eb,#60a5fa',glow:'rgba(37,99,235,0.12)'},
+  tools:     {accent:'#059669',bg:'#ecfdf5',border:'rgba(5,150,105,0.15)',cardBorder:'rgba(5,150,105,0.12)',pbar:'#059669,#34d399',glow:'rgba(5,150,105,0.12)'},
+  prompts:   {accent:'#7c3aed',bg:'#f5f3ff',border:'rgba(124,58,237,0.15)',cardBorder:'rgba(124,58,237,0.12)',pbar:'#7c3aed,#f472b6',glow:'rgba(124,58,237,0.12)'},
+  monetize:  {accent:'#b45309',bg:'#fffbeb',border:'rgba(180,83,9,0.15)',cardBorder:'rgba(180,83,9,0.12)',pbar:'#b45309,#f59e0b',glow:'rgba(180,83,9,0.12)'},
+  university:{accent:'#0d9488',bg:'#f0fdfa',border:'rgba(13,148,136,0.15)',cardBorder:'rgba(13,148,136,0.12)',pbar:'#0d9488,#34d399',glow:'rgba(13,148,136,0.12)'},
+  community: {accent:'#db2777',bg:'#fdf2f8',border:'rgba(219,39,119,0.15)',cardBorder:'rgba(219,39,119,0.12)',pbar:'#db2777,#a78bfa',glow:'rgba(219,39,119,0.12)'},
+  vault:     {accent:'#ea580c',bg:'#fff7ed',border:'rgba(234,88,12,0.15)',cardBorder:'rgba(234,88,12,0.12)',pbar:'#ea580c,#f59e0b',glow:'rgba(234,88,12,0.12)'},
+};
+
+let lastKey='';
+function applyTheme(key){
+  if(key===lastKey)return;
+  lastKey=key;
+  const t=SECTION_THEMES[key]||SECTION_THEMES.hero;
+
+  // 1. Body background
+  document.body.style.background=t.bg;
+
+  // 2. Inject dynamic CSS that overrides everything with the accent color
+  let el=document.getElementById('dyn-theme');
+  if(!el){el=document.createElement('style');el.id='dyn-theme';document.head.appendChild(el);}
+  el.textContent=`
+    ::-webkit-scrollbar-thumb{background:${t.accent}!important;}
+    ::selection{background:${t.accent}33;color:#111827;}
+    body{background:${t.bg}!important;}
+
+    /* Progress bar */
+    #pbar{background:linear-gradient(90deg,${t.pbar})!important;}
+
+    /* Nav */
+    #nav{border-bottom:2px solid ${t.accent}33!important;box-shadow:0 4px 30px ${t.glow}!important;}
+    .nav-logo{background:linear-gradient(135deg,${t.accent},${t.accent}bb)!important;-webkit-background-clip:text!important;-webkit-text-fill-color:transparent!important;}
+    .nav-cta{background:linear-gradient(135deg,${t.accent},${t.accent}cc)!important;color:#fff!important;}
+    .nav-links a:hover,.nav-links a::after{color:${t.accent}!important;background:${t.accent}!important;}
+
+    /* District nav */
+    #dnav{border-bottom:2px solid ${t.accent}22!important;background:rgba(255,255,255,0.96)!important;}
+    .dni.active{color:${t.accent}!important;border-bottom-color:${t.accent}!important;}
+    .dni:hover{color:${t.accent}!important;}
+
+    /* Eyebrows and section labels */
+    .eyebrow,.eyebrow *,.pcat,.uplvl,.dc-lbl,.pc-action,.vact,.fc-l,.aav-st,.h-ey,.h-badge{color:${t.accent}!important;}
+    .eyebrow::before{color:${t.accent}66!important;}
+
+    /* Headings gradient */
+    .gt-b,.gt-g,.gt-gr,.gt-f,.gt-p{background:linear-gradient(135deg,${t.accent},${t.accent}99)!important;-webkit-background-clip:text!important;-webkit-text-fill-color:transparent!important;}
+    .h-title .l2{background:linear-gradient(135deg,${t.accent},${t.accent}99,${t.pbar.split(',')[1]||t.accent})!important;background-size:200%!important;-webkit-background-clip:text!important;-webkit-text-fill-color:transparent!important;}
+    .hs-n{color:${t.accent}!important;}
+
+    /* Buttons */
+    .btn-p{background:linear-gradient(135deg,${t.accent},${t.accent}cc)!important;color:#fff!important;}
+    .btn-p:hover{box-shadow:0 8px 30px ${t.glow}!important;}
+
+    /* Cards border top glow */
+    .pc:hover{border-color:${t.accent}44!important;box-shadow:0 12px 40px ${t.glow}!important;}
+    .pcard:hover{border-color:${t.accent}44!important;}
+    .mc:hover{border-color:${t.accent}44!important;}
+    .mc::after{background:linear-gradient(90deg,transparent,${t.accent},transparent)!important;}
+    .upath:hover{border-color:${t.accent}44!important;}
+    .ccard:hover{border-color:${t.accent}33!important;}
+    .vcard:hover{border-color:${t.accent}44!important;box-shadow:0 8px 30px ${t.glow}!important;}
+
+    /* Modal */
+    .mtab.active{color:${t.accent}!important;border-bottom-color:${t.accent}!important;}
+    .mlist li::before,.psn{color:${t.accent}!important;}
+    .pb-out{border-left-color:${t.accent}!important;}
+    .ptext{border-left-color:${t.accent}!important;}
+
+    /* Form inputs */
+    .ts-in:focus,.pb-sel:focus,.pb-inp:focus,.nl-inp:focus{border-color:${t.accent}!important;box-shadow:0 0 0 3px ${t.accent}18!important;}
+    .tcb.active{border-color:${t.accent}!important;color:${t.accent}!important;background:${t.accent}0f!important;}
+    .pf.active{border-color:${t.accent}!important;color:${t.accent}!important;background:${t.accent}0f!important;}
+    .pcopy{border-color:${t.accent}44!important;color:${t.accent}!important;}
+    .pcopy:hover{background:${t.accent}15!important;}
+
+    /* Status and badges */
+    .hbdot{background:${t.accent}!important;box-shadow:0 0 8px ${t.accent}!important;}
+    .aav-r1{border-color:${t.accent}66!important;}
+    .aav-r2{border-color:${t.accent}33!important;}
+    .aav-img{border-color:${t.accent}!important;box-shadow:0 0 30px ${t.glow}!important;}
+    .aav-st{border-color:${t.accent}44!important;color:${t.accent}!important;background:${t.accent}0f!important;}
+    .ahandle{color:${t.accent}!important;}
+    .sc:hover{border-color:${t.accent}55!important;color:${t.accent}!important;}
+
+    /* XP and progress */
+    .xpbar{background:linear-gradient(90deg,${t.accent},${t.accent}99)!important;}
+    .mchk.done{border-color:${t.accent}!important;color:${t.accent}!important;background:${t.accent}15!important;}
+    .badge.earned .badge-icon{filter:drop-shadow(0 0 8px ${t.accent})!important;}
+    .badge.earned .badge-name{color:${t.accent}!important;}
+
+    /* Footer */
+    .ft-brand{background:linear-gradient(135deg,${t.accent},${t.accent}bb)!important;-webkit-background-clip:text!important;-webkit-text-fill-color:transparent!important;}
+    .ft-links a:hover{color:${t.accent}!important;}
+
+    /* Cursor glow */
+    #cg{background:radial-gradient(ellipse,${t.glow} 0%,transparent 70%)!important;}
+
+    /* Section backgrounds */
+    #about,#tools,#prompts,#monetize,#university,#community,#vault{background:${t.bg}!important;}
+    #hero{background:${t.bg}!important;}
+
+    /* Prompt builder */
+    .pb-wrap{border-color:${t.accent}22!important;}
+    .pb-title{color:#111827!important;}
+
+    /* District nav active dot */
+    .dnd{background:currentColor!important;}
+
+    /* Monetize amount */
+    .mamt{color:${t.accent}!important;}
+    .msteps li::before{color:${t.accent}!important;}
+  `;
+}
+
+window.addEventListener('scroll',()=>{
+  const prog=(window.scrollY/(document.documentElement.scrollHeight-window.innerHeight))*100;
+  document.getElementById('pbar').style.width=prog+'%';
+  document.getElementById('nav').classList.toggle('scrolled',window.scrollY>50);
+  const secs=['about','tools','prompts','monetize','university','community','vault'];
+  let a=0;let activeKey='hero';
+  secs.forEach((id,i)=>{
+    const el=document.getElementById(id);
+    if(el&&el.getBoundingClientRect().top<window.innerHeight*0.5){a=i;activeKey=id;}
+  });
+  if(window.scrollY<100)activeKey='hero';
+  applyTheme(activeKey);
+  document.querySelectorAll('.dni').forEach((item,i)=>item.classList.toggle('active',i===a));
+});
+
+document.addEventListener('mousemove',e=>{
+  const g=document.getElementById('cg');
+  if(g){g.style.left=e.clientX+'px';g.style.top=e.clientY+'px';}
+});
+
+function goTo(s){const el=document.querySelector(s);if(el)el.scrollIntoView({behavior:'smooth'});}
+function toggleMM(){document.getElementById('mmenu').classList.toggle('show');}
+
+// ══════════════════════════════════════════════
+// PARTICLE BACKGROUND
+// ══════════════════════════════════════════════
+(function(){
+  const canvas=document.getElementById('bgc');
+  if(!canvas)return;
+  const ctx=canvas.getContext('2d');
+  let W,H,pts=[];
+  const N=85,DIST=120;
+  function resize(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight;}
+  function Pt(){
+    this.x=Math.random()*W;this.y=Math.random()*H;
+    this.vx=(Math.random()-.5)*.22;this.vy=(Math.random()-.5)*.22;
+    this.r=.7+Math.random()*1.8;this.a=.1+Math.random()*.3;this.ph=Math.random()*Math.PI*2;
+    const c=['rgba(0,212,255,','rgba(124,58,237,','rgba(0,255,136,','rgba(244,114,182,'];
+    this.col=c[Math.floor(Math.random()*c.length)];
+  }
+  Pt.prototype.update=function(){
+    this.x+=this.vx;this.y+=this.vy;this.ph+=.01;
+    if(this.x<0||this.x>W)this.vx*=-1;
+    if(this.y<0||this.y>H)this.vy*=-1;
+  };
+  Pt.prototype.draw=function(){
+    const a=this.a*(.6+.4*Math.sin(this.ph));
+    ctx.beginPath();ctx.arc(this.x,this.y,this.r,0,Math.PI*2);
+    ctx.fillStyle=this.col+a+')';ctx.fill();
+  };
+  function frame(){
+    ctx.clearRect(0,0,W,H);
+    for(let i=0;i<pts.length;i++){
+      for(let j=i+1;j<pts.length;j++){
+        const dx=pts[i].x-pts[j].x,dy=pts[i].y-pts[j].y,d=Math.sqrt(dx*dx+dy*dy);
+        if(d<DIST){ctx.beginPath();ctx.moveTo(pts[i].x,pts[i].y);ctx.lineTo(pts[j].x,pts[j].y);ctx.strokeStyle='rgba(0,212,255,'+(1-d/DIST)*.07+')';ctx.lineWidth=.4;ctx.stroke();}
+      }
+    }
+    pts.forEach(p=>{p.update();p.draw();});
+    requestAnimationFrame(frame);
+  }
+  resize();
+  for(let i=0;i<N;i++)pts.push(new Pt());
+  window.addEventListener('resize',resize);
+  frame();
+})();
+
+// ══════════════════════════════════════════════
+// LOADER STATUS ANIMATION
+// ══════════════════════════════════════════════
+const loadMsgs=['LOADING AI UNIVERSE...','MAPPING 40 AI TOOLS...','INDEXING 200+ PROMPTS...','BUILDING DISTRICTS...','WIRING MONETIZE ENGINE...','ACTIVATING UNIVERSITY...','READY TO DOMINATE 🚀'];
+let si=0;
+const lst=setInterval(()=>{
+  si++;
+  const el=document.getElementById('lstatus');
+  if(el&&si<loadMsgs.length)el.textContent=loadMsgs[si];
+  if(si>=loadMsgs.length)clearInterval(lst);
+},420);
+
+// ══════════════════════════════════════════════
+// INIT
+// ══════════════════════════════════════════════
+window.addEventListener('load',()=>{
+  renderToolCats();
+  filterTools('All');
+  renderPCats();
+  filterPrompts('All');
+  renderMoney();
+  renderUniversity();
+  renderCommunity();
+  renderVault();
+  buildPrompt();
+  setTimeout(()=>{
+    const loader=document.getElementById('loader');
+    if(loader)loader.classList.add('hidden');
+    observeReveal();
+    animateCounters();
+  },2900);
+});
+</script>
+</body>
+</html>
